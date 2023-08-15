@@ -1,11 +1,4 @@
-import {
-  Column,
-  Entity,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Thread } from "./Thread";
 import { User } from "./Users";
 
@@ -18,8 +11,11 @@ export class Replies {
   content: string;
 
   @ManyToOne(() => User, (user) => user.id)
-  user: User[];
+  user: User;
 
-  @ManyToOne(() => Thread, (thread) => thread.replies)
-  thread: Thread[];
+  @ManyToOne(() => Thread, (thread) => thread.replies, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
+  thread: Thread;
 }

@@ -1,8 +1,7 @@
+import { Request, Response } from "express";
 import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { Thread } from "../entities/Thread";
-import { Request, Response } from "express";
-import { User } from "../entities/Users";
 
 class ThreadsService {
   private readonly threadRepository: Repository<Thread> =

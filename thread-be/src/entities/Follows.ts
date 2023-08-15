@@ -7,8 +7,8 @@ export class Followers {
   id: number;
 
   @ManyToOne(() => User, (user) => user.follower)
-  follower: User[];
+  follower: User;
 
   @ManyToOne(() => User, (user) => user.followed)
-  followed: User[];
+  followed: User;
 }

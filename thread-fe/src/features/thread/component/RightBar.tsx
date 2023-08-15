@@ -1,7 +1,7 @@
-import { Box, Button, Text, Image, Link } from "@chakra-ui/react";
+import { Box, Button, Image, Text } from "@chakra-ui/react";
 import { useState } from "react";
+import { VscHeart, VscHeartFilled } from "react-icons/vsc";
 import Data from "../../../utils/threads.json";
-import { VscHeartFilled, VscHeart } from "react-icons/vsc";
 
 export function RightBar() {
   return (

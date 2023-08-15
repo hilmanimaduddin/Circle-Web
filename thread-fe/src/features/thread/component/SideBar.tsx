@@ -1,13 +1,13 @@
-import { Box, Button, Text, Image, Flex } from "@chakra-ui/react";
-import { FaHome, FaSearch, FaHeart, FaUser } from "react-icons/fa";
+import { Box, Button, Text } from "@chakra-ui/react";
+import { FaHeart, FaHome, FaSearch, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export function SideBar() {
   return (
     <Box>
       <Box fontSize={20} p={7} display="flex" flexDirection="column" gap={3}>
-        <Text color="#04a51e" fontSize={50} fontWeight="bold">
-          circle
+        <Text color="#04a51e" fontSize={45} fontWeight="bold">
+          Circle
         </Text>
 
         <Text display="flex" gap={2} alignItems="center">

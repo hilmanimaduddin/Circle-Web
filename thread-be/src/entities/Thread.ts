@@ -24,14 +24,17 @@ export class Thread {
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   posted_at: Date;
 
-  @ManyToOne(() => User, (user) => user.threads)
+  @ManyToOne(() => User, (user) => user.threads, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
   user: User;
 
   @OneToMany(() => Likes, (likes) => likes.thread)
-  likes: Likes;
+  likes: Likes[];
 
   @OneToMany(() => Replies, (replies) => replies.thread)
-  replies: Replies;
+  replies: Replies[];
 
   // @ManyToOne(() => Replies, (user) => user.id)
   // replies: Replies;

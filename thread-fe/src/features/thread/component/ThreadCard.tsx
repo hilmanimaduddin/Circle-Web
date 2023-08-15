@@ -1,11 +1,11 @@
 import { Box, Button, Image, Text } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { VscHeart, VscHeartFilled } from "react-icons/vsc";
 import { Link } from "react-router-dom";
-import { ThreadCardType } from "../../../types/Threads/Threads";
+import { ThreadCardType } from "../../../types/IType";
 
 const ThreadCard = (props: ThreadCardType) => {
-  const [likesCount, setLikedCount] = useState(props.likes?.likes_count || 0);
+  const [likesCount, setLikedCount] = useState(props.liked || 0);
   const [isLikes, setIsLiked] = useState(props.is_liked || false);
 
   const handleLike = () => {
@@ -16,6 +16,8 @@ const ThreadCard = (props: ThreadCardType) => {
     }
     setIsLiked(!isLikes);
   };
+
+  console.log();
 
   return (
     <>
@@ -33,7 +35,7 @@ const ThreadCard = (props: ThreadCardType) => {
           boxSize="90px"
           objectFit="cover"
           src={props.author_picture}
-          alt="image"
+          alt={""}
         />
 
         <Box>
@@ -42,9 +44,8 @@ const ThreadCard = (props: ThreadCardType) => {
             <Text>@{props.author_username}</Text>
             <Text>{props.posted_at}</Text>
           </Box>
-          <Text>{props.content}</Text>
-          <Text>{props.likes?.likes_count}</Text>
-
+          {/* <Text>{props.content}</Text> */}
+          <Link to={`/blog/${props.id}`}>{props.content}</Link>
           <Image src={props.image} alt="" />
           <Button
             bg="none"

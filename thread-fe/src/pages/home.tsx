@@ -1,18 +1,22 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { RightBar } from "../../features/thread/component/RightBar";
-import { SideBar } from "../../features/thread/component/SideBar";
-import ThreadCard from "../../features/thread/component/ThreadCard";
-import API from "../../lib/api";
-import { ThreadCardType } from "../../types/Threads/Threads";
-import { CreatePost } from "../home/createPost";
+import { RightBar } from "../features/thread/component/RightBar";
+import { SideBar } from "../features/thread/component/SideBar";
+import ThreadCard from "../features/thread/component/ThreadCard";
+import { API } from "../lib/api";
+import { ThreadCardType } from "../types/IType";
+import { CreatePost } from "../features/thread/component/createPost";
 
 export function Home() {
   const [thread, setThread] = useState<ThreadCardType[]>([]);
 
   async function fetchData() {
     try {
-      const res = await API.get("/");
+      const res = await API.get("/thread/", {
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`,
+        },
+      });
       setThread(res.data);
     } catch (error) {
       console.error("error");
@@ -47,8 +51,8 @@ export function Home() {
               posted_at={item.posted_at}
               content={item.content}
               image={item.image}
-              replies_count={item.replies_count}
-              is_liked={item.is_liked}
+              // replies_count={item.replies_count}
+              // is_liked={item.is_liked}
               liked={item.likes?.likes_count}
             />
           );

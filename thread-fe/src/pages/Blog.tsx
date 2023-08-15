@@ -1,20 +1,12 @@
-import {
-  Box,
-  Button,
-  Grid,
-  GridItem,
-  Image,
-  Input,
-  Text,
-} from "@chakra-ui/react";
-import { useState, useEffect } from "react";
+import { Box, Button, Grid, GridItem, Image, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { VscHeart, VscHeartFilled } from "react-icons/vsc";
 import { useParams } from "react-router-dom";
-import Data from "../../../src/utils/threads.json";
-import { RightBar } from "../../features/thread/component/RightBar";
-import { SideBar } from "../../features/thread/component/SideBar";
-import { ThreadCardType } from "../../types/Threads/Threads";
-import API from "../../lib/api";
+import { RightBar } from "../features/thread/component/RightBar";
+import { SideBar } from "../features/thread/component/SideBar";
+import { API } from "../lib/api";
+import { ThreadCardType } from "../types/IType";
+import { CreatePost } from "../features/thread/component/createPost";
 
 export function Blog() {
   const { id } = useParams();
@@ -23,10 +15,14 @@ export function Blog() {
 
   async function fetchData() {
     try {
-      const res = await API.get("/");
+      const res = await API.get("/thread/", {
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`,
+        },
+      });
       setThread(res.data);
     } catch (error) {
-      console.error("yfdyued");
+      console.error({ error: "salah ya ni" });
     }
   }
 
@@ -36,8 +32,9 @@ export function Blog() {
 
   const prop = thread.find((props) => props.id == id);
 
-  const [likesCount, setLikedCount] = useState(prop?.liked || 0);
+  const [likesCount, setLikedCount] = useState(prop?.likes?.likes_count || 0);
   const [isLikes, setIsLiked] = useState(prop?.is_liked || false);
+  console.log(prop);
 
   const handleLike = () => {
     if (isLikes) {
@@ -61,20 +58,7 @@ export function Blog() {
           borderColor="#2f2f2f"
           p={5}
         >
-          <Box mb={4}>
-            <Text fontSize={30}>Home</Text>
-            <Box display="flex" gap="10px">
-              <Image
-                borderRadius="full"
-                boxSize="30px"
-                objectFit="cover"
-                src="https://cdn1.katadata.co.id/media/images/thumb/2021/10/06/Kucing_Bengal-2021_10_06-10_17_15_ad40e6fefe890f0db85dd31bd4d5d0c9_960x640_thumb.jpg"
-                alt="image"
-              />
-              <Input type="text" placeholder="What is happening?" />
-              <Button bgColor="#04a51e">Post</Button>
-            </Box>
-          </Box>
+          <CreatePost />
           <Box>
             <Box display="flex" flexDirection="column" alignItems="center">
               <Box width="100%">
@@ -92,12 +76,8 @@ export function Blog() {
                       <Text>{prop?.user?.full_name}</Text>
                       <Text>@{prop?.user?.username}</Text>
                       <Text>{prop?.posted_at}</Text>
-                      <Text>{prop?.liked}</Text>
-                      <Text>{prop?.user?.id}</Text>
-                      <Text>{prop?.likes?.likes_count}</Text>
                     </Box>
                     <Text>{prop?.content}</Text>
-
                     <Button
                       bg="none"
                       variant="none"

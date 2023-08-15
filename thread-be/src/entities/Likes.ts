@@ -11,8 +11,11 @@ export class Likes {
   likes_count: number;
 
   @ManyToOne(() => User, (user) => user.likes)
-  user: User[];
+  user: User;
 
-  @ManyToOne(() => Thread, (user) => user.id)
-  thread: User[];
+  @ManyToOne(() => Thread, (user) => user.id, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
+  thread: User;
 }
