@@ -2,6 +2,7 @@ import * as express from "express";
 import { Request, Response } from "express-serve-static-core";
 import { AppDataSource } from "./data-source";
 import router from "./route";
+import "dotenv/config";
 
 AppDataSource.initialize()
   .then(async () => {
@@ -9,6 +10,7 @@ AppDataSource.initialize()
     const port = 5000;
 
     var cors = require("cors");
+    // console.log(req)
 
     app.use(cors());
 
@@ -16,6 +18,7 @@ AppDataSource.initialize()
 
     app.use(express.json());
     app.use("/api/v1", router);
+    app.use("/uploads", express.static("uploads"));
 
     app.get("/", (reg: Request, res: Response) => {
       res.send("hello world!");

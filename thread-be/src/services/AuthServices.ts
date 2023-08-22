@@ -12,8 +12,12 @@ class AuthServices {
 
   async find(reg: Request, res: Response) {
     try {
-      const users = await this.authRepository.find();
-
+      const loginSession = res.locals.loginSession;
+      const users = await this.authRepository.find({
+        where: {
+          id: loginSession.user.id,
+        },
+      });
       return res.status(200).json(users);
     } catch (err) {
       return res.status(500).json({ error: "kok gk ada user?" });
@@ -70,7 +74,15 @@ class AuthServices {
           username: data.username,
           email: data.email,
         },
-        select: ["id", "full_name", "username", "email", "password"],
+        select: [
+          "id",
+          "full_name",
+          "username",
+          "email",
+          "password",
+          "profile_picture",
+          "profile_description",
+        ],
       });
 
       if (!checkEmail) {
@@ -88,6 +100,8 @@ class AuthServices {
         full_name: checkEmail.full_name,
         username: checkEmail.username,
         email: checkEmail.email,
+        profile_picture: checkEmail.profile_picture,
+        profile_description: checkEmail.profile_description,
       });
 
       const token = jwt.sign({ user }, "pastibisa", { expiresIn: "1h" });
@@ -109,8 +123,17 @@ class AuthServices {
         where: {
           id: loginSession.user.id,
         },
-        select: ["id", "full_name", "username", "email", "password"],
+        select: [
+          "id",
+          "full_name",
+          "username",
+          "email",
+          "password",
+          "profile_picture",
+          "profile_description",
+        ],
       });
+      console.log(user);
 
       return res.status(200).json({
         user,

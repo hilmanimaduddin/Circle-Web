@@ -10,6 +10,9 @@ export class Replies {
   @Column()
   content: string;
 
+  @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+  posted_at: Date;
+
   @ManyToOne(() => User, (user) => user.id)
   user: User;
 

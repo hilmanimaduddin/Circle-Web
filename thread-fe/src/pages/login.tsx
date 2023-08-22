@@ -1,50 +1,34 @@
 import {
   Box,
-  Text,
-  InputGroup,
-  Input,
-  InputRightElement,
   Button,
   Container,
+  Input,
+  InputGroup,
+  InputRightElement,
   Stack,
+  Text,
 } from "@chakra-ui/react";
-import React, { ChangeEvent, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { UserType } from "../types/IType";
-import { API } from "../lib/api";
+import React from "react";
+import { Link } from "react-router-dom";
+import { useLogin } from "../features/auth/hooks/useLogin";
+import { useSelector } from "react-redux";
+import { RootState } from "../stores/types/rootState";
 
 export function Login() {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
 
-  const [form, setForm] = useState<UserType>({
-    email: "",
-    password: "",
-  });
+  const { handleChange, handleLogin } = useLogin();
+  const user = useSelector((state: RootState) => state.user);
 
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    setForm({
-      ...form,
-      [event.target.name]: event.target.value,
-    });
+  function cobaDulu() {
+    console.log("ni data usernya", user);
   }
 
-  console.log(form);
-
-  const navigate = useNavigate();
-
-  async function handleLogin() {
-    try {
-      const response = await API.post("/auth/login", form);
-      localStorage.setItem("token", response.data.token);
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-    }
-  }
   return (
     <>
       <Container alignContent="center" mt="20">
+        <Button onClick={cobaDulu}>datanya</Button>
         <Stack spacing={3}>
           <Text fontSize="40px" fontWeight="bold" color="#04a51e">
             Circle

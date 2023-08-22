@@ -1,47 +1,57 @@
-import { Box, Image, Input, Stack, Text } from "@chakra-ui/react";
-import { ChangeEvent, useState } from "react";
+import { Box, Button, Image, Input, Stack, Text } from "@chakra-ui/react";
+import { ChangeEvent, useEffect, FormEvent, useState, useRef } from "react";
 import { API } from "../../../lib/api";
-import { ThreadCardType } from "../../../types/IType";
+import { ThreadCardType, IGetThreads } from "../../../types/interface/IType";
+import { VscFileMedia } from "react-icons/vsc";
+import { AUTH_LOGIN } from "../../../stores/rootReducer";
 
 export function CreatePost() {
-  // function HandleSubmit(event) {
-  //   event.preventDefault();
-
-  //   const form = event.target;
-
-  //   // fetch("/thread/create", );
-
-  //   const formnya = "dheihf";
-  //   console.log(formnya);
-  // }
-
-  const [form, setForm] = useState<ThreadCardType>({
+  const [form, setForm] = useState<IGetThreads>({
     content: "",
     image: "",
+    // user: 0,
   });
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    setForm({
-      ...form,
-      [event.target.name]: event.target.value,
-    });
+    const { name, value, files } = event.target;
+    if (files) {
+      setForm({
+        ...form,
+        [name]: files[0],
+      });
+    } else {
+      setForm({
+        ...form,
+        [name]: value,
+      });
+    }
   }
 
-  console.log(form);
+  // console.log(form);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  function handleButtonClick() {
+    fileInputRef.current?.click();
+  }
+
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    postData();
+  }
 
   async function postData() {
     try {
-      const res = await API.post("/thread/create", form);
+      const formData = new FormData();
+      formData.append("content", form.content as string);
+      formData.append("image", form.image as File);
+      const res = await API.post("/thread/create", formData);
       console.log(res.config.data);
       setForm(res.data);
     } catch (error) {
       console.error({ error: "salah ya ni" });
     }
   }
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
 
   return (
     <>
@@ -58,33 +68,44 @@ export function CreatePost() {
             alt="image"
           />
           <form
-            action="http://localhost:5000/api/v1/thread/create"
+            onSubmit={handleSubmit}
+            style={{ width: "100%" }}
             encType="multipart/form-data"
-            method="post"
           >
-            <Input
-              mb={3}
-              name="content"
-              onChange={handleChange}
-              variant="outline"
-              placeholder="What is happening?!"
-            />
-            <Input
-              mb={3}
-              type="file"
-              name="image"
-              onChange={handleChange}
-              variant="outline"
-            />
-            <Box display="flex" justifyContent="end">
+            <Box display={"flex"} gap={4}>
               <Input
+                mb={3}
+                name="content"
+                onChange={handleChange}
+                variant="outline"
+                placeholder="What is happening?!"
+              />
+              <Button
+                fontSize={20}
+                bgColor="#04a51e"
+                onClick={handleButtonClick}
+              >
+                <VscFileMedia />
+              </Button>
+              <Input
+                mb={3}
+                type="file"
+                name="image"
+                onChange={handleChange}
+                variant="outline"
+                ref={fileInputRef}
+                style={{ display: "none" }}
+              />
+            </Box>
+            <Box display="flex" justifyContent="end">
+              <Button
                 type="submit"
                 width="100px"
-                onClick={postData}
                 borderRadius={50}
                 bgColor="#04a51e"
-                value="Post"
-              />
+              >
+                post
+              </Button>
             </Box>
           </form>
         </Box>

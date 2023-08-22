@@ -1,8 +1,13 @@
 import { Box, Button, Text } from "@chakra-ui/react";
 import { FaHeart, FaHome, FaSearch, FaUser } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function SideBar() {
+  const navigate = useNavigate();
+  function logOut() {
+    localStorage.removeItem("token");
+    navigate("/login");
+  }
   return (
     <Box>
       <Box fontSize={20} p={7} display="flex" flexDirection="column" gap={3}>
@@ -27,6 +32,9 @@ export function SideBar() {
         </Text>
         <Button borderRadius={50} bgColor="#04a51e">
           <Link to="/login">Create Post</Link>
+        </Button>
+        <Button borderRadius={50} bgColor="#04a51e" onClick={logOut}>
+          Log Out
         </Button>
       </Box>
     </Box>

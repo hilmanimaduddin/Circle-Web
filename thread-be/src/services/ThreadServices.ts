@@ -1,7 +1,10 @@
+import { v2 as cloudinary } from "cloudinary";
 import { Request, Response } from "express";
 import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { Thread } from "../entities/Thread";
+import { newDate } from "../utils/date";
+import "dotenv/config";
 
 class ThreadsService {
   private readonly threadRepository: Repository<Thread> =
@@ -11,9 +14,23 @@ class ThreadsService {
     try {
       const threads = await this.threadRepository.find({
         relations: ["user", "replies", "likes"],
+        order: {
+          id: "DESC",
+        },
       });
 
-      return res.status(200).json(threads);
+      let newResponse = [];
+
+      threads.forEach((element) => {
+        element.image = "http://localhost:5000/uploads/" + element.image;
+        newResponse.push({
+          ...element,
+          replies_count: element.replies.length,
+          likes_count: element.likes.length,
+        });
+      });
+
+      return res.status(200).json(newResponse);
     } catch (err) {
       return res.status(500).json({ error: "Error while getting threads" });
     }
@@ -22,17 +39,34 @@ class ThreadsService {
   async create(req: Request, res: Response) {
     try {
       const data = req.body;
+      const date = newDate();
+      const filename = req.file.filename;
+      const loginSession = res.locals.loginSession;
+
+      cloudinary.config({
+        cloud_name: process.env.CLOUD_NAME,
+        api_key: process.env.API_KEY,
+        api_secret: process.env.API_SECRET,
+      });
+
+      const cloudRes = await cloudinary.uploader.upload(
+        "./uploads/" + filename
+      );
+
+      console.log("cloud Res", cloudRes);
+
       const thread = this.threadRepository.create({
-        replies: data.replies,
-        likes: data.likes,
-        user: data.user,
         content: data.content,
-        image: data.image,
+        image: filename,
+        Date: date,
+        user: {
+          id: loginSession.user.id,
+        },
       });
       const createThread = this.threadRepository.save(thread);
       return res.status(200).json(createThread);
     } catch (err) {
-      return res.status(500).json({ error: "sorry there was an error" });
+      return res.status(500).json({ error: "sorry there was an error", err });
     }
   }
 
@@ -45,6 +79,7 @@ class ThreadsService {
           id: id,
         },
       });
+
       return res.status(200).json(threads);
     } catch (err) {
       return res.status(500).json({ error: "sorry there was an error" });

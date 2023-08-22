@@ -1,39 +1,9 @@
 import { Box, Button, Container, Input, Stack, Text } from "@chakra-ui/react";
-import { Link, useNavigate } from "react-router-dom";
-import React, { useState, ChangeEvent, useEffect } from "react";
-import { UserType } from "../types/IType";
-import { API } from "../lib/api";
+import { Link } from "react-router-dom";
+import { useRegister } from "../features/auth/hooks/useRegister";
 
 export function Register() {
-  const [form, setForm] = useState<UserType>({
-    full_name: "",
-    email: "",
-    username: "",
-    password: "",
-  });
-
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    setForm({
-      ...form,
-      [event.target.name]: event.target.value,
-    });
-  }
-
-  console.log(form);
-
-  const navigate = useNavigate();
-
-  async function handleRegister() {
-    try {
-      const response = await API.post("/auth/register", form);
-      console.log("registrasi berhasil", response.config.data);
-      navigate("/login");
-      // alert("selamat anda sudah terdaftar");
-    } catch (error) {
-      console.log("salah registrasi", error);
-      alert("registrasi gagal");
-    }
-  }
+  const { handleChange, handleRegister } = useRegister();
 
   return (
     <>

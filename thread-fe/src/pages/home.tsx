@@ -3,12 +3,17 @@ import { useEffect, useState } from "react";
 import { RightBar } from "../features/thread/component/RightBar";
 import { SideBar } from "../features/thread/component/SideBar";
 import ThreadCard from "../features/thread/component/ThreadCard";
-import { API } from "../lib/api";
-import { ThreadCardType } from "../types/IType";
 import { CreatePost } from "../features/thread/component/createPost";
+import { API } from "../lib/api";
+import { ThreadCardType } from "../types/interface/IType";
+import { useSelector } from "react-redux";
+import { RootState } from "../stores/types/rootState";
 
 export function Home() {
   const [thread, setThread] = useState<ThreadCardType[]>([]);
+  // const user = useSelector((state: RootState) => state.user);
+
+  // console.log("ni data usernya", user);
 
   async function fetchData() {
     try {
@@ -51,9 +56,11 @@ export function Home() {
               posted_at={item.posted_at}
               content={item.content}
               image={item.image}
-              // replies_count={item.replies_count}
+              replies_count={item.replies_count}
+              likes_count={item.likes_count}
               // is_liked={item.is_liked}
               liked={item.likes?.likes_count}
+              Date={item.Date}
             />
           );
         })}

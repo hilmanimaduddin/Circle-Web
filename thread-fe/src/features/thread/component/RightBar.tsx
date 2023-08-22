@@ -1,9 +1,17 @@
 import { Box, Button, Image, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { VscHeart, VscHeartFilled } from "react-icons/vsc";
 import Data from "../../../utils/threads.json";
+import { useParams } from "react-router-dom";
+import { useUserCard } from "../hooks/useUserCard";
+import { UserType } from "../../../types/interface/IType";
+import { API } from "../../../lib/api";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../stores/types/rootState";
 
 export function RightBar() {
+  const user = useSelector((state: RootState) => state.user);
+  console.log(user);
   return (
     <Box>
       <Box
@@ -14,19 +22,11 @@ export function RightBar() {
         p={3}
       >
         <Text>My Profile</Text>
-        <Image
-          borderRadius={5}
-          src="https://awsimages.detik.net.id/community/media/visual/2023/05/10/ilustrasi-kucing-1_169.jpeg?w=600&q=90"
-          alt="profil"
-        />
+        <Image borderRadius={5} src={user.profile_picture} alt="profil" />
         <img src="" alt="" />
-        <Text>Hilman Imaduddin</Text>
-        <Text>@hielmannn</Text>
-        <Text>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
-          culpa harum impedit, vitae exercitationem soluta aliquid incidunt
-          optio porro ratione!
-        </Text>
+        <Text>{user.full_name}</Text>
+        <Text>@{user.username}</Text>
+        <Text>{user.profile_description}</Text>
       </Box>
       <Box
         border="2px"
