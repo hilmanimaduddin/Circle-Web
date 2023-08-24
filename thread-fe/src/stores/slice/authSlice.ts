@@ -1,5 +1,5 @@
-import { UserType } from "../../types/interface/IType";
 import { createSlice } from "@reduxjs/toolkit";
+import { UserType } from "../../types/interface/IType";
 
 const initialAuthState: UserType = {
   id: 0,
@@ -47,6 +47,7 @@ export const authSlice = createSlice({
     },
     AUTH_LOGOUT: () => {
       localStorage.removeItem("token");
+      console.log("keluar");
     },
   },
 });

@@ -6,13 +6,6 @@ import { AUTH_LOGIN } from "../../../stores/rootReducer";
 import { useDispatch } from "react-redux";
 
 export function useLogin() {
-  // const [show, setShow] = React.useState(false);
-  // const handleClick = () => setShow(!show);
-
-  // function handleClick() {
-  //   setShow(!show);
-  // }
-
   const [form, setForm] = useState<UserType>({
     email: "",
     password: "",

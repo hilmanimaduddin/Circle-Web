@@ -1,10 +1,9 @@
 import { v2 as cloudinary } from "cloudinary";
+import "dotenv/config";
 import { Request, Response } from "express";
 import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { Thread } from "../entities/Thread";
-import { newDate } from "../utils/date";
-import "dotenv/config";
 
 class ThreadsService {
   private readonly threadRepository: Repository<Thread> =
@@ -39,7 +38,6 @@ class ThreadsService {
   async create(req: Request, res: Response) {
     try {
       const data = req.body;
-      const date = newDate();
       const filename = req.file.filename;
       const loginSession = res.locals.loginSession;
 
@@ -58,7 +56,6 @@ class ThreadsService {
       const thread = this.threadRepository.create({
         content: data.content,
         image: filename,
-        Date: date,
         user: {
           id: loginSession.user.id,
         },

@@ -24,9 +24,6 @@ export class Thread {
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   posted_at: Date;
 
-  @Column({ nullable: true })
-  Date: string;
-
   @ManyToOne(() => User, (user) => user.threads, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",

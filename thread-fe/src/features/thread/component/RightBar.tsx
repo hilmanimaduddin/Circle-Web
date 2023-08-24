@@ -11,7 +11,6 @@ import { RootState } from "../../../stores/types/rootState";
 
 export function RightBar() {
   const user = useSelector((state: RootState) => state.user);
-  console.log(user);
   return (
     <Box>
       <Box
@@ -22,8 +21,23 @@ export function RightBar() {
         p={3}
       >
         <Text>My Profile</Text>
-        <Image borderRadius={5} src={user.profile_picture} alt="profil" />
-        <img src="" alt="" />
+        <Image
+          borderRadius={5}
+          height={"200px"}
+          width={"100%"}
+          objectFit={"cover"}
+          src="https://i2.wp.com/blog.tripcetera.com/id/wp-content/uploads/2020/10/pulau-padar.jpg"
+          alt=""
+        />
+        <Image
+          borderRadius="full"
+          boxSize="100px"
+          mt={"-14"}
+          ml={4}
+          objectFit={"cover"}
+          src={user.profile_picture}
+          alt="profil"
+        />
         <Text>{user.full_name}</Text>
         <Text>@{user.username}</Text>
         <Text>{user.profile_description}</Text>

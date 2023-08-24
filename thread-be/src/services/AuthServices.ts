@@ -133,7 +133,11 @@ class AuthServices {
           "profile_description",
         ],
       });
-      console.log(user);
+
+      if (user.profile_picture == null) {
+        user.profile_picture =
+          "https://www.copaster.com/wp-content/uploads/2023/03/pp-kosong-wa-default-300x279.jpeg";
+      }
 
       return res.status(200).json({
         user,

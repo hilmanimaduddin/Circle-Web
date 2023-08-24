@@ -1,10 +1,17 @@
 import { Box, Button, Text } from "@chakra-ui/react";
 import { FaHeart, FaHome, FaSearch, FaUser } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { RootState } from "../../../stores/types/rootState";
+import { AUTH_LOGOUT } from "../../../stores/rootReducer";
+import { useDispatch } from "react-redux";
 
 export function SideBar() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user);
   function logOut() {
+    // dispatch(AUTH_LOGOUT());
     localStorage.removeItem("token");
     navigate("/login");
   }

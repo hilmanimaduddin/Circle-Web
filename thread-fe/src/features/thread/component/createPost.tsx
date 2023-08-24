@@ -1,15 +1,16 @@
 import { Box, Button, Image, Input, Stack, Text } from "@chakra-ui/react";
-import { ChangeEvent, useEffect, FormEvent, useState, useRef } from "react";
-import { API } from "../../../lib/api";
-import { ThreadCardType, IGetThreads } from "../../../types/interface/IType";
+import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { VscFileMedia } from "react-icons/vsc";
-import { AUTH_LOGIN } from "../../../stores/rootReducer";
+import { useSelector } from "react-redux";
+import { API } from "../../../lib/api";
+import { RootState } from "../../../stores/types/rootState";
+import { IGetThreads } from "../../../types/interface/IType";
 
 export function CreatePost() {
+  const user = useSelector((state: RootState) => state.user);
   const [form, setForm] = useState<IGetThreads>({
     content: "",
     image: "",
-    // user: 0,
   });
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
@@ -64,7 +65,7 @@ export function CreatePost() {
             borderRadius="full"
             boxSize="30px"
             objectFit="cover"
-            src="https://cdn1.katadata.co.id/media/images/thumb/2021/10/06/Kucing_Bengal-2021_10_06-10_17_15_ad40e6fefe890f0db85dd31bd4d5d0c9_960x640_thumb.jpg"
+            src={user.profile_picture}
             alt="image"
           />
           <form
@@ -96,16 +97,16 @@ export function CreatePost() {
                 ref={fileInputRef}
                 style={{ display: "none" }}
               />
-            </Box>
-            <Box display="flex" justifyContent="end">
-              <Button
-                type="submit"
-                width="100px"
-                borderRadius={50}
-                bgColor="#04a51e"
-              >
-                post
-              </Button>
+              <Box display="flex" justifyContent="end">
+                <Button
+                  type="submit"
+                  width="70px"
+                  // borderRadius={50}
+                  bgColor="#04a51e"
+                >
+                  post
+                </Button>
+              </Box>
             </Box>
           </form>
         </Box>

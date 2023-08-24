@@ -10,7 +10,7 @@ import {
 import { useEffect, useState } from "react";
 import { VscHeart, VscHeartFilled } from "react-icons/vsc";
 import { useParams } from "react-router-dom";
-import { AddReply } from "../features/thread/component/Reply";
+import { AddReply } from "../features/thread/component/ReplyPost";
 import { RightBar } from "../features/thread/component/RightBar";
 import { SideBar } from "../features/thread/component/SideBar";
 import { CreatePost } from "../features/thread/component/createPost";
@@ -18,6 +18,7 @@ import { API } from "../lib/api";
 import { ThreadCardType } from "../types/interface/IType";
 import { useReplyGet } from "../features/thread/hooks/useReplyGet";
 import moment from "moment";
+import GetReply from "../features/thread/component/GetReply";
 
 export function Blog() {
   const { id } = useParams();
@@ -90,7 +91,9 @@ export function Blog() {
                     <Box display="flex" gap="10px">
                       <Text>{prop?.user?.full_name}</Text>
                       <Text>@{prop?.user?.username}</Text>
-                      <Text>{prop?.posted_at as string}</Text>
+                      <Text>
+                        {moment(prop?.posted_at).startOf("minute").fromNow()}
+                      </Text>
                     </Box>
                     <Text>{prop?.content}</Text>
                     <Button
@@ -115,33 +118,14 @@ export function Blog() {
           </Box>
           {reply.map((item, index) => {
             return (
-              <Box
-                borderBottom="1px"
-                borderColor={"gray"}
-                display={"flex"}
-                gap={3}
-              >
-                <Image
-                  mt={2}
-                  src={item.user?.profile_picture}
-                  alt=""
-                  borderRadius="full"
-                  boxSize={"35px"}
-                  objectFit="cover"
-                />
-                <Box>
-                  <Box display={"flex"} gap={3}>
-                    <Text>{item.user?.full_name}</Text>
-                    <Text>@{item.user?.username}</Text>
-                    <Text>{item.posted_at}</Text>
-                  </Box>
-                  <Text>{item.content}</Text>
-                  <Text display={"flex"} alignItems={"center"} gap={1}>
-                    <VscHeartFilled />
-                    17 likes
-                  </Text>
-                </Box>
-              </Box>
+              <GetReply
+                key={index}
+                username={item.user?.username}
+                full_name={item.user?.full_name}
+                posted_at={item.posted_at}
+                profile_picture={item.user?.profile_picture}
+                content={item.content}
+              />
             );
           })}
         </GridItem>
