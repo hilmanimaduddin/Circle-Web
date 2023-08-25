@@ -1,16 +1,7 @@
-import {
-  Box,
-  Button,
-  Grid,
-  GridItem,
-  Image,
-  Text,
-  border,
-} from "@chakra-ui/react";
-import { VscHeart, VscHeartFilled } from "react-icons/vsc";
-import { IReply } from "../../../types/interface/IReply";
-import { ThreadCardType } from "../../../types/interface/IType";
+import { Box, Image, Text } from "@chakra-ui/react";
 import moment from "moment";
+import { VscHeartFilled } from "react-icons/vsc";
+import { IReply } from "../../../types/interface/IReply";
 
 const GetReply = (item: IReply) => {
   return (

@@ -1,24 +1,16 @@
-import {
-  Box,
-  Button,
-  Grid,
-  GridItem,
-  Image,
-  Text,
-  border,
-} from "@chakra-ui/react";
+import { Box, Button, Grid, GridItem, Image, Text } from "@chakra-ui/react";
+import moment from "moment";
 import { useEffect, useState } from "react";
 import { VscHeart, VscHeartFilled } from "react-icons/vsc";
 import { useParams } from "react-router-dom";
+import GetReply from "../features/thread/component/GetReply";
 import { AddReply } from "../features/thread/component/ReplyPost";
 import { RightBar } from "../features/thread/component/RightBar";
 import { SideBar } from "../features/thread/component/SideBar";
 import { CreatePost } from "../features/thread/component/createPost";
+import { useReply } from "../features/thread/hooks/useReply";
 import { API } from "../lib/api";
 import { ThreadCardType } from "../types/interface/IType";
-import { useReply } from "../features/thread/hooks/useReply";
-import moment from "moment";
-import GetReply from "../features/thread/component/GetReply";
 
 export function Blog() {
   const { id } = useParams();
