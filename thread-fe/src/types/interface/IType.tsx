@@ -1,11 +1,11 @@
 export interface ThreadCardType {
-  id?: string;
+  id?: string | number;
   author_full_name?: string;
   author_username?: string;
   author_picture?: string;
   posted_at?: string | Date;
   posted?: Date;
-  Date?: string;
+  date?: string;
   content?: string;
   image?: string | File;
   replies_count?: number;

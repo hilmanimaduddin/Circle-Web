@@ -21,7 +21,7 @@ class ThreadsService {
       let newResponse = [];
 
       threads.forEach((element) => {
-        element.image = "http://localhost:5000/uploads/" + element.image;
+        // element.image = "http://localhost:5000/uploads/" + element.image;
         newResponse.push({
           ...element,
           replies_count: element.replies.length,
@@ -47,15 +47,15 @@ class ThreadsService {
         api_secret: process.env.API_SECRET,
       });
 
-      const cloudRes = await cloudinary.uploader.upload(
+      const cloudinaryResponse = await cloudinary.uploader.upload(
         "./uploads/" + filename
       );
 
-      console.log("cloud Res", cloudRes);
+      console.log("cloud Res", cloudinaryResponse);
 
       const thread = this.threadRepository.create({
         content: data.content,
-        image: filename,
+        image: cloudinaryResponse.secure_url,
         user: {
           id: loginSession.user.id,
         },

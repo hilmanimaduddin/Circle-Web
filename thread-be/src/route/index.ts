@@ -5,6 +5,7 @@ import RepliesController from "../controllers/RepliesController";
 import ThreadsController from "../controllers/ThreadsController";
 import authenticate from "../middlewares/auth";
 import { upload } from "../middlewares/uploadFile";
+import ThreadsQueue from "../queues/ThreadsQueue";
 // import multer = require("multer");
 // import cloudinary from 'cloudinary';
 
@@ -21,7 +22,7 @@ router.post(
   "/thread/create",
   authenticate,
   upload("image"),
-  ThreadsController.create
+  ThreadsQueue.create
 );
 router.get("/thread/:id", ThreadsController.findOne);
 router.delete("/thread/delete/:id", ThreadsController.delete);

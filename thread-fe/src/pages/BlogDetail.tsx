@@ -16,7 +16,7 @@ import { SideBar } from "../features/thread/component/SideBar";
 import { CreatePost } from "../features/thread/component/createPost";
 import { API } from "../lib/api";
 import { ThreadCardType } from "../types/interface/IType";
-import { useReplyGet } from "../features/thread/hooks/useReplyGet";
+import { useReply } from "../features/thread/hooks/useReply";
 import moment from "moment";
 import GetReply from "../features/thread/component/GetReply";
 
@@ -25,7 +25,7 @@ export function Blog() {
 
   const [thread, setThread] = useState<ThreadCardType[]>([]);
 
-  const { reply } = useReplyGet();
+  const { reply } = useReply();
 
   async function fetchData() {
     try {

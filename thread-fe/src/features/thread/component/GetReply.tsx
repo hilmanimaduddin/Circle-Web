@@ -13,7 +13,6 @@ import { ThreadCardType } from "../../../types/interface/IType";
 import moment from "moment";
 
 const GetReply = (item: IReply) => {
-  console.log(moment(item.posted_at).startOf("minute").fromNow());
   return (
     <>
       <Box borderBottom="1px" borderColor={"gray"} display={"flex"} gap={3}>

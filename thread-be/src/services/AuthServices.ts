@@ -104,7 +104,7 @@ class AuthServices {
         profile_description: checkEmail.profile_description,
       });
 
-      const token = jwt.sign({ user }, "pastibisa", { expiresIn: "1h" });
+      const token = jwt.sign({ user }, "pastibisa", { expiresIn: "24h" });
 
       return res.status(200).json({
         user: user,

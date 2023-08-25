@@ -1,10 +1,9 @@
 import { Box, Button, Image, Text } from "@chakra-ui/react";
+import moment from "moment";
 import { useState } from "react";
 import { VscHeart, VscHeartFilled } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 import { ThreadCardType } from "../../../types/interface/IType";
-import { useDate } from "../hooks/useDate";
-import moment from "moment";
 
 const ThreadCard = (props: ThreadCardType) => {
   const [likesCount, setLikedCount] = useState(props.likes_count as number);
@@ -44,7 +43,7 @@ const ThreadCard = (props: ThreadCardType) => {
             <Text>@{props.author_username}</Text>
             <Text>{moment(props.posted_at).startOf("minute").fromNow()}</Text>
           </Box>
-          <Text>{props.id}</Text>
+          {/* <Text>{props.id}</Text> */}
           <Link to={`/blog/${props.id}`}>{props.content}</Link>
           <Text>{moment(props.posted_at).format("LLLL")}</Text>
           <Image src={props.image as string} alt="" />

@@ -60,6 +60,7 @@ export function RightBar() {
 
 export function ThreadCard() {
   const [data, _] = useState(Data);
+  console.log(data);
   return (
     <>
       {data.map((props, i) => (

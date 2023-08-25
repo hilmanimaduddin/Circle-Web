@@ -28,8 +28,6 @@ export function CreatePost() {
     }
   }
 
-  // console.log(form);
-
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   function handleButtonClick() {

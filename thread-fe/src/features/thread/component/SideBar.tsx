@@ -11,8 +11,8 @@ export function SideBar() {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
   function logOut() {
-    // dispatch(AUTH_LOGOUT());
-    localStorage.removeItem("token");
+    dispatch(AUTH_LOGOUT());
+    // localStorage.removeItem("token");
     navigate("/login");
   }
   return (
