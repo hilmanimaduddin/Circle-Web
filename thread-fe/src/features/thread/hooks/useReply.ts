@@ -8,7 +8,6 @@ export function useReply() {
   const [form, setForm] = useState<IReply>({
     content: "",
     thread: id,
-    // image: "",
   });
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
@@ -26,20 +25,17 @@ export function useReply() {
     }
   }
 
-  // console.log(form);
-
   async function postData() {
     try {
-      //   const formData = new FormData();
       const res = await API.post("/replies/create", form);
-      // console.log(res.config.data);
       setForm(res.data);
     } catch (error) {
       console.error({ error: "salah ya ni" });
     }
   }
 
-  // const { id } = useParams();
+  // get data reply from database
+
   const [reply, setReply] = useState<IReply[]>([]);
 
   async function fetchData() {
@@ -54,6 +50,6 @@ export function useReply() {
   useEffect(() => {
     fetchData();
   }, []);
-  // return { reply };
+
   return { handleChange, postData, reply };
 }

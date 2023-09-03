@@ -5,52 +5,74 @@ import { useSelector } from "react-redux";
 import { API } from "../../../lib/api";
 import { RootState } from "../../../stores/types/rootState";
 import { IGetThreads } from "../../../types/interface/IType";
+import { useDispatch } from "react-redux";
+import { THREAD_GET } from "../../../stores/rootReducer";
+import { useThreadCard } from "../hooks/useThreadCard";
 
 export function CreatePost() {
   const user = useSelector((state: RootState) => state.user);
-  const [form, setForm] = useState<IGetThreads>({
-    content: "",
-    image: "",
-  });
+  const dispatch = useDispatch();
 
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    const { name, value, files } = event.target;
-    if (files) {
-      setForm({
-        ...form,
-        [name]: files[0],
-      });
-    } else {
-      setForm({
-        ...form,
-        [name]: value,
-      });
-    }
-  }
+  const { handleButtonClick, handleSubmit, handleChange, fileInputRef } =
+    useThreadCard();
+  // const [form, setForm] = useState<IGetThreads>({
+  //   content: "",
+  //   image: "",
+  // });
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  // function handleChange(event: ChangeEvent<HTMLInputElement>) {
+  //   const { name, value, files } = event.target;
+  //   if (files) {
+  //     setForm({
+  //       ...form,
+  //       [name]: files[0],
+  //     });
+  //   } else {
+  //     setForm({
+  //       ...form,
+  //       [name]: value,
+  //     });
+  //   }
+  // }
 
-  function handleButtonClick() {
-    fileInputRef.current?.click();
-  }
+  // async function fetchData() {
+  //   try {
+  //     const res = await API.get("/thread/", {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.token}`,
+  //       },
+  //     });
+  //     dispatch(THREAD_GET(res.data));
+  //   } catch (error) {
+  //     console.error("error");
+  //   }
+  // }
 
-  function handleSubmit(event: FormEvent) {
-    event.preventDefault();
-    postData();
-  }
+  // const fileInputRef = useRef<HTMLInputElement>(null);
 
-  async function postData() {
-    try {
-      const formData = new FormData();
-      formData.append("content", form.content as string);
-      formData.append("image", form.image as File);
-      const res = await API.post("/thread/create", formData);
-      console.log(res.config.data);
-      setForm(res.data);
-    } catch (error) {
-      console.error({ error: "salah ya ni" });
-    }
-  }
+  // function handleButtonClick() {
+  //   fileInputRef.current?.click();
+  // }
+
+  // function handleSubmit(event: FormEvent) {
+  //   event.preventDefault();
+  //   postData();
+  // }
+
+  // async function postData() {
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append("content", form.content as string);
+  //     formData.append("image", form.image as File);
+  //     const res = await API.post("/thread/create", formData);
+  //     fetchData();
+  //     console.log(res.config.data);
+  //     console.log("data", formData);
+  //     setForm(res.data);
+  //   } catch (error) {
+  //     console.error({ error: "salah ya ni" });
+  //   }
+  // }
 
   return (
     <>

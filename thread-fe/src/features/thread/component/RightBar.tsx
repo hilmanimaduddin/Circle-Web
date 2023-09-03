@@ -2,7 +2,7 @@ import { Box, Button, Image, Text } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { VscHeart, VscHeartFilled } from "react-icons/vsc";
 import Data from "../../../utils/threads.json";
-import { useParams } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useUserCard } from "../hooks/useUserCard";
 import { UserType } from "../../../types/interface/IType";
 import { API } from "../../../lib/api";
@@ -11,6 +11,7 @@ import { RootState } from "../../../stores/types/rootState";
 
 export function RightBar() {
   const user = useSelector((state: RootState) => state.user);
+
   return (
     <Box>
       <Box
@@ -38,9 +39,11 @@ export function RightBar() {
           src={user.profile_picture}
           alt="profil"
         />
-        <Text>{user.full_name}</Text>
-        <Text>@{user.username}</Text>
-        <Text>{user.profile_description}</Text>
+        <Link to={`/profil`}>
+          <Text>{user.full_name}</Text>
+          <Text>@{user.username}</Text>
+          <Text>{user.profile_description}</Text>
+        </Link>
       </Box>
       <Box
         border="2px"
@@ -49,49 +52,72 @@ export function RightBar() {
         margin={2}
         p={3}
       >
-        <Text>Suggested for You</Text>
+        <Text mb={2}>Suggested for You</Text>
         <Box>
-          <ThreadCard />
+          <UserProfile />
         </Box>
       </Box>
     </Box>
   );
 }
 
-export function ThreadCard() {
-  const [data, _] = useState(Data);
-  console.log(data);
+export function UserProfile() {
+  const [data, setData] = useState<UserType[]>([]);
+
+  async function fetchData() {
+    try {
+      const res = await API.get("/auth");
+      setData(res.data);
+    } catch (err) {
+      console.log("error", err);
+    }
+  }
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const [dataa, _] = useState(Data);
+  const navigate = useNavigate();
+
+  // console.log("usernya", dataa);
+
+  // console.log(data);
   return (
     <>
       {data.map((props, i) => (
-        <Box key={i} display="flex" gap="10px" mb="10px">
+        <Box
+          key={i}
+          display="flex"
+          gap="10px"
+          mb="10px"
+          borderBottom={"2px"}
+          borderColor="#2f2f2f"
+          pb={2}
+        >
           <Image
             borderRadius="full"
             boxSize="50px"
             objectFit="cover"
-            src={props.user.profile_picture}
+            src={
+              props.profile_picture ??
+              "https://www.copaster.com/wp-content/uploads/2023/03/pp-kosong-wa-default-300x279.jpeg"
+            }
             alt="image"
           />
 
           <Box>
-            <Box display="flex" gap="10px">
-              <Text>{i}</Text>
-              <Text>{props.user.full_name}</Text>
-              <Text>@{props.user.username}</Text>
-              <Text>{props.posted_at}</Text>
-            </Box>
-            <Text>{props.content}</Text>
-            {/* <img style={{width}} src={props.image} alt="foto" /> */}
-            <Button
-              bg="none"
-              variant="none"
-              leftIcon={props.is_liked ? <VscHeartFilled /> : <VscHeart />}
-            >
-              {props.likes_count} likes
-            </Button>
-            <Button bg="none" variant="none">
-              {props.replies_count} replies
-            </Button>
+            <Link to={`/profil/user/${props.id}`}>
+              <Box display="flex" gap="10px">
+                {/* <Text>{props.id}</Text> */}
+                <Text>{props.full_name}</Text>
+                <Text color={"#6f6f6f"} fontStyle={"italic"}>
+                  @{props.username}
+                </Text>
+              </Box>
+              <Text>
+                {props.profile_description ?? "Ini tu belom ada deskripsi..."}
+              </Text>
+            </Link>
           </Box>
         </Box>
       ))}

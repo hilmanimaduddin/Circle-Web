@@ -3,6 +3,7 @@ export interface ThreadCardType {
   author_full_name?: string;
   author_username?: string;
   author_picture?: string;
+  author_id?: number;
   posted_at?: string | Date;
   posted?: Date;
   date?: string;

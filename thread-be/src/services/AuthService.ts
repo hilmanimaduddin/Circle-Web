@@ -14,10 +14,14 @@ class AuthServices {
     try {
       const loginSession = res.locals.loginSession;
       const users = await this.authRepository.find({
-        where: {
-          id: loginSession.user.id,
+        // where: {
+        //   id: loginSession.user.id,
+        // },
+        order: {
+          id: "DESC",
         },
       });
+
       return res.status(200).json(users);
     } catch (err) {
       return res.status(500).json({ error: "kok gk ada user?" });

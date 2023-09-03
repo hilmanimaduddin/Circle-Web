@@ -1,8 +1,8 @@
 import { Box, Button, Grid, GridItem, Image, Text } from "@chakra-ui/react";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { VscHeart, VscHeartFilled } from "react-icons/vsc";
-import { useParams } from "react-router-dom";
+import { VscHeart, VscHeartFilled, VscArrowLeft } from "react-icons/vsc";
+import { useParams, Link } from "react-router-dom";
 import GetReply from "../features/thread/component/GetReply";
 import { AddReply } from "../features/thread/component/ReplyPost";
 import { RightBar } from "../features/thread/component/RightBar";
@@ -14,6 +14,7 @@ import { ThreadCardType } from "../types/interface/IType";
 
 export function Blog() {
   const { id } = useParams();
+  console.log(id);
 
   const [thread, setThread] = useState<ThreadCardType[]>([]);
 
@@ -42,14 +43,31 @@ export function Blog() {
   const [isLikes, setIsLiked] = useState(prop?.is_liked || false);
   console.log(prop);
 
-  const handleLike = () => {
-    if (isLikes) {
-      setLikedCount(likesCount - 1);
-    } else {
-      setLikedCount(likesCount + 1);
+  // const handleLike = () => {
+  //   if (isLikes) {
+  //     setLikedCount(likesCount - 1);
+  //   } else {
+  //     setLikedCount(likesCount + 1);
+  //   }
+  //   setIsLiked(!isLikes);
+  // };
+
+  function handleLike() {
+    try {
+      if (!isLikes) {
+        setLikedCount(likesCount + 1);
+        const response = API.post("/like", { thread_id: id });
+        console.log("add", response);
+      } else {
+        setLikedCount(likesCount - 1);
+        const response = API.delete(`/like/${id}`);
+        console.log(response);
+      }
+      setIsLiked(!isLikes);
+    } catch (err) {
+      console.log("error ni", err);
     }
-    setIsLiked(!isLikes);
-  };
+  }
 
   // const { handleChange, postData } = useReply();
 
@@ -66,7 +84,18 @@ export function Blog() {
           borderColor="#2f2f2f"
           p={5}
         >
-          <CreatePost />
+          <Box
+            fontSize="40px"
+            fontWeight="medium"
+            display={"flex"}
+            gap={3}
+            alignItems={"center"}
+          >
+            <Link to={`/`}>
+              <VscArrowLeft />
+            </Link>
+            <Text>Status</Text>
+          </Box>
           <Box>
             <Box display="flex" flexDirection="column" alignItems="center">
               <Box width="100%">
@@ -81,8 +110,12 @@ export function Blog() {
 
                   <Box>
                     <Box display="flex" gap="10px">
-                      <Text>{prop?.user?.full_name}</Text>
-                      <Text>@{prop?.user?.username}</Text>
+                      <Link to={`/profil/user/${prop?.user?.id}`}>
+                        <Text>{prop?.user?.full_name}</Text>
+                      </Link>
+                      <Text color={"#6f6f6f"} fontStyle={"italic"}>
+                        @{prop?.user?.username}
+                      </Text>
                       <Text>
                         {moment(prop?.posted_at).startOf("minute").fromNow()}
                       </Text>
@@ -94,7 +127,7 @@ export function Blog() {
                       onClick={handleLike}
                       leftIcon={isLikes ? <VscHeartFilled /> : <VscHeart />}
                     >
-                      {likesCount} likes
+                      {prop?.likes_count} likes
                     </Button>
                     <Button bg="none" variant="none">
                       {prop?.replies_count} replies

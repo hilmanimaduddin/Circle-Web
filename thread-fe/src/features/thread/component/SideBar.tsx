@@ -10,6 +10,7 @@ export function SideBar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
+
   function logOut() {
     dispatch(AUTH_LOGOUT());
     // localStorage.removeItem("token");
@@ -21,22 +22,22 @@ export function SideBar() {
         <Text color="#04a51e" fontSize={45} fontWeight="bold">
           Circle
         </Text>
-
-        <Text display="flex" gap={2} alignItems="center">
-          <Link to={`/`}>
-            <FaHome />
-          </Link>
-          <Link to={`/`}>Home</Link>
-        </Text>
+        <Link to={`/`}>
+          <Text display="flex" gap={2} alignItems="center">
+            <FaHome /> Home
+          </Text>
+        </Link>
         <Text display="flex" gap={2} alignItems="center">
           <FaSearch /> Search
         </Text>
         <Text display="flex" gap={2} alignItems="center">
           <FaHeart /> Follow
         </Text>
-        <Text display="flex" gap={2} alignItems="center">
-          <FaUser /> Profile
-        </Text>
+        <Link to={`/profil`}>
+          <Text display="flex" gap={2} alignItems="center">
+            <FaUser /> Profile
+          </Text>
+        </Link>
         <Button borderRadius={50} bgColor="#04a51e">
           <Link to="/login">Create Post</Link>
         </Button>

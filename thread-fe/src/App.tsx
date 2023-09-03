@@ -14,6 +14,9 @@ import { useDispatch } from "react-redux";
 import { AUTH_CHECK, AUTH_ERROR } from "./stores/rootReducer";
 import { RootState } from "./stores/types/rootState";
 import { useSelector } from "react-redux";
+import { Profile } from "./pages/Profile";
+import { ProfileUser } from "./features/auth/component/profile";
+import { ProfileUserData } from "./pages/ProfileUser";
 
 function App() {
   const [isLoading, seIsLoading] = useState<boolean>(true);
@@ -64,6 +67,8 @@ function App() {
           {/* <Route path="/" element={<IsNotLogin />}></Route> */}
           <Route path="/register" element={<Register />}></Route>
           <Route path="/login" element={<Login />}></Route>
+          <Route path="/profil" element={<Profile />}></Route>
+          <Route path="/profil/user/:id" element={<ProfileUserData />}></Route>
         </Routes>
       )}
     </>

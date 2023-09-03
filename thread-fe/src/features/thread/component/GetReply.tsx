@@ -18,7 +18,9 @@ const GetReply = (item: IReply) => {
         <Box>
           <Box display={"flex"} gap={3}>
             <Text>{item.full_name}</Text>
-            <Text>@{item.username}</Text>
+            <Text color={"#6f6f6f"} fontStyle={"italic"}>
+              @{item.username}
+            </Text>
             <Text>{moment(item.posted_at).startOf("minute").fromNow()}</Text>
           </Box>
           <Text>{item.content}</Text>

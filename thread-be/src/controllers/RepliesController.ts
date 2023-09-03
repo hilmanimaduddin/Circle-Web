@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import RepliesServices from "../services/RepliesServices";
+import RepliesServices from "../services/RepliesService";
 
 class RepliesController {
   async find(req: Request, res: Response) {

@@ -14,7 +14,8 @@ const ThreadCard = (props: ThreadCardType) => {
   const [isLikes, setIsLiked] = useState(props.is_liked);
   const user = useSelector((state: RootState) => state.user);
   const id = props.id;
-  const thread = useSelector((state: RootState) => state.thread.threads);
+
+  const { handlePostLike } = useThreadCard();
 
   const handleLike = () => {
     try {
@@ -48,18 +49,13 @@ const ThreadCard = (props: ThreadCardType) => {
           borderRadius="full"
           boxSize="60px"
           objectFit="cover"
-          src={
-            props.author_picture ??
-            "https://www.copaster.com/wp-content/uploads/2023/03/pp-kosong-wa-default-300x279.jpeg"
-          }
+          src={props.author_picture}
           alt={""}
         />
 
         <Box>
           <Box display="flex" gap="10px">
-            <Link to={`/profil/user/${props.author_id}`}>
-              {props.author_full_name}
-            </Link>
+            <Link to={`/blog/${props.id}`}>{props.author_full_name}</Link>
             <Text color={"#6f6f6f"} fontStyle={"italic"}>
               @{props.author_username}
             </Text>
