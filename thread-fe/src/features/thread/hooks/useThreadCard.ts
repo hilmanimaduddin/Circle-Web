@@ -68,6 +68,7 @@ export function useThreadCard() {
     event.preventDefault();
     postData();
   }
+  const [coba, setCoba] = useState("");
 
   async function postData() {
     try {
@@ -75,7 +76,13 @@ export function useThreadCard() {
       formData.append("content", form.content as string);
       formData.append("image", form.image as File);
       const res = await API.post("/thread/create", formData);
-      fetchData();
+      const fetch = await API.get("/thread/", {
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`,
+        },
+      });
+      dispatch(THREAD_GET(fetch.data));
+      setCoba("coba");
       console.log(res.config.data);
       console.log("data", formData);
       setForm(res.data);
@@ -85,6 +92,7 @@ export function useThreadCard() {
   }
 
   return {
+    coba,
     handlePostLike,
     handleButtonClick,
     handleSubmit,

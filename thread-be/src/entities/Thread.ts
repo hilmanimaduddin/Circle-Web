@@ -15,10 +15,10 @@ export class Thread {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: true })
   content: string;
 
-  @Column()
+  @Column({ nullable: true })
   image: string;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })

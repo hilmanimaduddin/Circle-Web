@@ -16,11 +16,17 @@ router.get("/", (reg: Request, res: Response) => {
 });
 
 router.get("/thread", authenticate, ThreadsController.find);
+// router.post(
+//   "/thread/create",
+//   authenticate,
+//   upload("image"),
+//   ThreadsQueue.create
+// );
 router.post(
   "/thread/create",
   authenticate,
   upload("image"),
-  ThreadsQueue.create
+  ThreadsController.create
 );
 router.get("/thread/:id", ThreadsController.findOne);
 router.delete("/thread/delete/:id", ThreadsController.delete);
@@ -43,6 +49,7 @@ router.delete(
 );
 
 router.get("/likeget", LikesController.find);
+router.get("/like/:user", LikesController.findByUser);
 router.post("/like", authenticate, LikesController.create);
 router.delete("/like/:thread_id", authenticate, LikesController.delete);
 

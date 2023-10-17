@@ -3,22 +3,54 @@ import moment from "moment";
 import { useState, useEffect } from "react";
 import { VscHeart, VscHeartFilled } from "react-icons/vsc";
 import { Link, useParams } from "react-router-dom";
-import { Likes, ThreadCardType } from "../../../types/interface/IType";
-import { useThreadCard } from "../hooks/useThreadCard";
-import { API } from "../../../lib/api";
-import { RootState } from "../../../stores/types/rootState";
 import { useSelector } from "react-redux";
+import { ThreadCardType } from "../../types/interface/IType";
+import { RootState } from "../../stores/types/rootState";
+import { API } from "../../lib/api";
 
-const ThreadCard = (props: ThreadCardType) => {
-  const [likesCount, setLikedCount] = useState(props.likes_count as number);
-  const coba = props.is_liked;
-  console.log("coba", coba);
-
-  const [isLikes, setIsLiked] = useState(props.is_liked);
+const ThreadCardNew = (props: any) => {
   const user = useSelector((state: RootState) => state.user);
-  const id = props.id;
   const thread = useSelector((state: RootState) => state.thread.threads);
-  console.log("islikeddd", isLikes);
+  // console.log("alllData", props.allData);
+
+  const [likee, setLikee] = useState<any[]>([]);
+
+  const getReply = async () => {
+    try {
+      const res = await API.get(`/like/${user.id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`,
+        },
+      });
+      setLikee(res.data);
+      // console.log("res", res.data);
+    } catch (error) {
+      console.error("error");
+    }
+  };
+
+  const filter = likee.find((prop) => prop.thread.id == props.id);
+
+  const likeIs = filter?.id !== undefined;
+  const [isLikes, setIsLiked] = useState(Boolean);
+  const [likesCount, setLikedCount] = useState(props.likes_count as number);
+
+  useEffect(() => {
+    getReply();
+  }, []);
+
+  useEffect(() => {
+    if (likeIs === false) {
+      setIsLiked(false);
+    } else if (likeIs === true) {
+      setIsLiked(true);
+    }
+  }, [likeIs]);
+
+  // console.log("likeIs filter", likeIs);
+  // console.log("isLikes state", isLikes);
+
+  const id = props.id;
 
   const handleLike = () => {
     try {
@@ -64,13 +96,14 @@ const ThreadCard = (props: ThreadCardType) => {
             <Link to={`/profil/user/${props.author_id}`}>
               {props.author_full_name}
             </Link>
+            <Box>{props.id}</Box>
             <Text color={"#6f6f6f"} fontStyle={"italic"}>
               @{props.author_username}
             </Text>
             <Text>{moment(props.posted_at).startOf("minute").fromNow()}</Text>
           </Box>
           {/* <Text>{props.id}</Text> */}
-          <Link to={`/blog/${props.id}`}>{props.content}</Link>
+          <Link to={`/detail-blog/${props.id}`}>{props.content}</Link>
           <Text>{moment(props.posted_at).format("LLLL")}</Text>
           <Image src={props.image as string} alt="" />
           <Button
@@ -78,16 +111,19 @@ const ThreadCard = (props: ThreadCardType) => {
             variant="none"
             onClick={handleLike}
             leftIcon={isLikes ? <VscHeartFilled /> : <VscHeart />}
+            // leftIcon={<VscHeartFilled />}
           >
             {likesCount} likes
           </Button>
-          <Button bg="none" variant="none">
-            {props.replies_count} replies
-          </Button>
+          <Link to={`/detail-blog/${props.id}`}>
+            <Button bg="none" variant="none">
+              {props.replies_count} replies
+            </Button>
+          </Link>
         </Box>
       </Box>
     </>
   );
 };
 
-export default ThreadCard;
+export default ThreadCardNew;

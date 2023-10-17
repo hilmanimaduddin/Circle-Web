@@ -1,12 +1,19 @@
 import * as amqp from "amqplib";
+// import { v2 as cloudinary } from "cloudinary";
 import { v2 as cloudinary } from "cloudinary";
 import { AppDataSource } from "../data-source";
 import { Thread } from "../entities/Thread";
+import { env } from "process";
+import { Repository } from "typeorm";
 
 class ThreadWorker {
+  private readonly threadRepository: Repository<Thread> =
+    AppDataSource.getRepository(Thread);
+
   async create(queueName: string, connection: amqp.Connection) {
     try {
       const channel = await connection.createChannel();
+      console.log("Connected to RabbitMQ");
 
       await channel.assertQueue(queueName);
       await channel.consume(queueName, async (message) => {
@@ -16,11 +23,25 @@ class ThreadWorker {
 
             console.log("Received message : ", payload);
 
+            // cloudinary.config({
+            //   cloud_name: process.env.CLOUD_NAME,
+            //   api_key: process.env.API_KEY,
+            //   api_secret: process.env.API_SECRET,
+            // });
+
+            cloudinary.config({
+              cloud_name: "dlcgwbdtv",
+              api_key: "361789865221418",
+              api_secret: "SSAfZgIMCIMpo1E6GX96tbgUn-g",
+            });
+
             const cloudinaryResponse = await cloudinary.uploader.upload(
-              "./uploads/" + payload.image
+              "../../uploads/" + payload.image
             );
 
-            const thread = AppDataSource.getRepository(Thread).create({
+            console.log("Cloudinary response : ", cloudinaryResponse);
+
+            const thread = this.threadRepository.create({
               content: payload.content,
               image: cloudinaryResponse.secure_url,
               user: {
@@ -28,9 +49,13 @@ class ThreadWorker {
               },
             });
 
-            await AppDataSource.getRepository(Thread).save(thread);
+            console.log("Thread : ", thread);
 
-            console.log("Thread is created..");
+            const createData = await AppDataSource.getRepository(Thread).save(
+              thread
+            );
+
+            console.log({ Note: "Thread is created..", Data: createData });
             channel.ack(message);
           } catch (err) {
             console.log("Process queue is failed : ", err);

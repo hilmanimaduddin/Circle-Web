@@ -30,6 +30,26 @@ class LikesService {
     }
   }
 
+  async findByUser(UserId: any): Promise<any> {
+    try {
+      const Replies = await this.likeRepository.find({
+        relations: ["user", "thread"],
+        where: {
+          user: {
+            id: UserId,
+          },
+        },
+        order: {
+          id: "DESC",
+        },
+      });
+
+      return Replies;
+    } catch (err) {
+      throw new Error("Something error");
+    }
+  }
+
   async create(reqBody: any, loginSession: any): Promise<any> {
     try {
       const isLikeExist = await this.likeRepository.count({
@@ -57,6 +77,7 @@ class LikesService {
       });
 
       await this.likeRepository.save(like);
+      console.log("tambah");
 
       return {
         message: "You liked this thread...",
@@ -87,6 +108,8 @@ class LikesService {
       await this.likeRepository.delete({
         id: like.id,
       });
+
+      console.log("delete");
 
       return {
         message: "You unliked this thread..",

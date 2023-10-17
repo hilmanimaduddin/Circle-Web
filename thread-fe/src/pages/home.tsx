@@ -15,7 +15,9 @@ import { useThreadCard } from "../features/thread/hooks/useThreadCard";
 export function Home() {
   const dispatch = useDispatch();
 
-  const { fetchData } = useThreadCard();
+  const [getData, setGetData] = useState<ThreadCardType[]>([]);
+
+  const { fetchData, coba } = useThreadCard();
 
   // async function fetchData() {
   //   try {
@@ -29,13 +31,19 @@ export function Home() {
   //     console.error("error");
   //   }
   // }
+  const thread = useSelector((state: RootState) => state.thread.threads);
   useEffect(() => {
     fetchData();
   }, []);
 
-  const thread = useSelector((state: RootState) => state.thread.threads);
-  const daa = thread.filter((ddd) => ddd.user?.id == 3);
-  console.log("coba", daa);
+  useEffect(() => {
+    setGetData(thread);
+    console.log("getDataaaa", getData);
+  }, [coba]);
+  console.log("getData", getData);
+
+  // const daa = thread.filter((ddd) => ddd.user?.id == 3);
+  console.log("coba", thread);
 
   return (
     <>

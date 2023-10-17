@@ -21,9 +21,6 @@ export class User {
   @Column({ select: false })
   password: string;
 
-  // @Column()
-  // password: string;
-
   @Column({ nullable: true })
   profile_picture: string;
 

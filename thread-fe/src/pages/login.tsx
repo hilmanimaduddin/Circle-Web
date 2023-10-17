@@ -28,7 +28,9 @@ export function Login() {
   return (
     <>
       <Container alignContent="center" mt="20">
-        <Button onClick={cobaDulu}>datanya</Button>
+        <Button display={"none"} onClick={cobaDulu}>
+          datanya
+        </Button>
         <Stack spacing={3}>
           <Text fontSize="40px" fontWeight="bold" color="#04a51e">
             Circle

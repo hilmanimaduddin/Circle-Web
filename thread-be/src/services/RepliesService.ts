@@ -40,8 +40,10 @@ class RepliesServices {
           id: loginSession.user.id,
         },
       });
-      const create = this.repliesRepository.save(replies);
-      return res.status(200).json({ create, true: "bener nih" });
+      this.repliesRepository.save(replies);
+      return res
+        .status(200)
+        .json({ content: replies.content, id: replies.user.id });
     } catch (err) {
       return res.status(500).json({ salah: "ini salah ya", err });
     }

@@ -12,6 +12,7 @@ class ThreadsService {
   async find(reg: Request, res: Response) {
     try {
       const threads = await this.threadRepository.find({
+        take: 2,
         relations: ["user", "replies", "likes"],
         order: {
           id: "DESC",

@@ -17,6 +17,8 @@ import { useSelector } from "react-redux";
 import { Profile } from "./pages/Profile";
 import { ProfileUser } from "./features/auth/component/profile";
 import { ProfileUserData } from "./pages/ProfileUser";
+import { HomeNew } from "./pagesNew/homeNew";
+import { DetailBlog } from "./pagesNew/DetailBlogNew";
 
 function App() {
   const [isLoading, seIsLoading] = useState<boolean>(true);
@@ -69,6 +71,9 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/profil" element={<Profile />}></Route>
           <Route path="/profil/user/:id" element={<ProfileUserData />}></Route>
+          {/* New Edit */}
+          <Route path="/home" element={<HomeNew />}></Route>
+          <Route path="/detail-blog/:id" element={<DetailBlog />}></Route>
         </Routes>
       )}
     </>

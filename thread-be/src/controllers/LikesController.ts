@@ -11,6 +11,16 @@ class LikesController {
     }
   }
 
+  async findByUser(req: Request, res: Response) {
+    try {
+      const UserId = parseInt(req.params.user);
+      const response = await LikesServices.findByUser(UserId);
+      return res.status(200).json(response);
+    } catch (err) {
+      return res.status(500).json(err);
+    }
+  }
+
   async create(req: Request, res: Response) {
     try {
       const loginSession = res.locals.loginSession;
