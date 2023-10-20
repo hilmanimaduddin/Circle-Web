@@ -11,26 +11,17 @@ import {
 import React from "react";
 import { Link } from "react-router-dom";
 import { useLogin } from "../features/auth/hooks/useLogin";
-import { useSelector } from "react-redux";
-import { RootState } from "../stores/types/rootState";
 
 export default function Login() {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
 
   const { handleChange, handleLogin } = useLogin();
-  const user = useSelector((state: RootState) => state.user);
-
-  function cobaDulu() {
-    console.log("ni data usernya", user);
-  }
+  // const user = useSelector((state: RootState) => state.user);
 
   return (
     <>
       <Container alignContent="center" mt="20">
-        <Button display={"none"} onClick={cobaDulu}>
-          datanya
-        </Button>
         <Stack spacing={3}>
           <Text fontSize="40px" fontWeight="bold" color="#04a51e">
             Circle
