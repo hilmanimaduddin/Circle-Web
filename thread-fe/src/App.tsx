@@ -1,12 +1,7 @@
-// import { useState } from "react";
-// import reactLogo from "./assets/react.svg";
-// import "./App.css";
-// import "../src/features/thread/component/ThreadCard";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate, Outlet, Route, Routes, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { API, setAuthToken } from "./lib/api";
-import { Blog } from "./pages/BlogDetail";
 import { FollowSuggest } from "./pages/Follow/FollowSuggest";
 import { Followed } from "./pages/Follow/Followed";
 import { Follower } from "./pages/Follow/Follower";
@@ -17,13 +12,13 @@ import { Register } from "./pages/Register";
 import { DetailBlog } from "./pagesNew/DetailBlogNew";
 import { HomeNew } from "./pagesNew/homeNew";
 import { AUTH_CHECK, AUTH_ERROR } from "./stores/rootReducer";
-import { RootState } from "./stores/types/rootState";
+// import { RootState } from "./stores/types/rootState";
 
 function App() {
   const [isLoading, seIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.user);
+  // const user = useSelector((state: RootState) => state.user);
 
   async function authCheck() {
     try {
@@ -43,20 +38,20 @@ function App() {
     authCheck();
   }, []);
 
-  function IsLogin() {
-    if (!user.username) {
-      return <Navigate to={"/login"} />;
-    } else {
-      return <Outlet />;
-    }
-  }
-  function IsNotLogin() {
-    if (user.username) {
-      return <Navigate to={"/"} />;
-    } else {
-      return <Outlet />;
-    }
-  }
+  // function IsLogin() {
+  //   if (!user.username) {
+  //     return <Navigate to={"/login"} />;
+  //   } else {
+  //     return <Outlet />;
+  //   }
+  // }
+  // function IsNotLogin() {
+  //   if (user.username) {
+  //     return <Navigate to={"/"} />;
+  //   } else {
+  //     return <Outlet />;
+  //   }
+  // }
 
   return (
     <>
@@ -64,14 +59,14 @@ function App() {
         <Routes>
           {/* <Route path="/" element={<IsLogin />}></Route> */}
           <Route path="/" element={<HomeNew />}></Route>
-          <Route path="/blog/:id" element={<Blog />}></Route>
+          {/* <Route path="/blog/:id" element={<Blog />}></Route> */}
           {/* <Route path="/" element={<IsNotLogin />}></Route> */}
           <Route path="/register" element={<Register />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/profil" element={<Profile />}></Route>
           <Route path="/profil/user/:id" element={<ProfileUserData />}></Route>
           {/* New Edit */}
-          <Route path="/home" element={<HomeNew />}></Route>
+          {/* <Route path="/home" element={<HomeNew />}></Route> */}
           <Route path="/follower" element={<Follower />}></Route>
           <Route path="/followed" element={<Followed />}></Route>
           <Route path="/followSuggest" element={<FollowSuggest />}></Route>

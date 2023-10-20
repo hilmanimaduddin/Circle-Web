@@ -1,6 +1,6 @@
-import { Box, Button, Image, Text } from "@chakra-ui/react";
-import { RootState } from "../../../stores/types/rootState";
+import { Box, Image, Text } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
+import { RootState } from "../../../stores/types/rootState";
 
 export function ProfileUser() {
   const user = useSelector((state: RootState) => state.user);

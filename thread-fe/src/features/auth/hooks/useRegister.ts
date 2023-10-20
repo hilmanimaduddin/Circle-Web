@@ -1,7 +1,7 @@
-import { Link, useNavigate } from "react-router-dom";
-import React, { useState, ChangeEvent, useEffect } from "react";
-import { UserType } from "../../../types/interface/IType";
+import { ChangeEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { API } from "../../../lib/api";
+import { UserType } from "../../../types/interface/IType";
 
 export function useRegister() {
   const [form, setForm] = useState<UserType>({

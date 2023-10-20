@@ -14,7 +14,7 @@ export const authSlice = createSlice({
   name: "auth",
   initialState: initialAuthState,
   reducers: {
-    AUTH_LOGIN: (state, action) => {
+    AUTH_LOGIN: (_, action) => {
       const payload = action.payload;
       console.log("redux auth login :", payload);
       localStorage.setItem("token", payload.token);
@@ -28,7 +28,7 @@ export const authSlice = createSlice({
       };
       return user;
     },
-    AUTH_CHECK: (state, action) => {
+    AUTH_CHECK: (_, action) => {
       const payload = action.payload;
       console.log("redux auth check :", payload);
       const user: UserType = {
