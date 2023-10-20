@@ -1,16 +1,15 @@
 import { Box, Button, Image, Text } from "@chakra-ui/react";
 import moment from "moment";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { VscHeart, VscHeartFilled } from "react-icons/vsc";
-import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { ThreadCardType } from "../../types/interface/IType";
-import { RootState } from "../../stores/types/rootState";
+import { Link } from "react-router-dom";
 import { API } from "../../lib/api";
+import { RootState } from "../../stores/types/rootState";
 
 const ThreadCardNew = (props: any) => {
   const user = useSelector((state: RootState) => state.user);
-  const thread = useSelector((state: RootState) => state.thread.threads);
+
   // console.log("alllData", props.allData);
 
   const [likee, setLikee] = useState<any[]>([]);

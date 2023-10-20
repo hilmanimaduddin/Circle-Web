@@ -13,7 +13,6 @@ import { VscFileMedia } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
 import { RightBar } from "../features/thread/component/RightBar";
 import { SideBar } from "../features/thread/component/SideBar";
-import ThreadCard from "../features/thread/component/ThreadCard";
 import { API } from "../lib/api";
 import { THREAD_GET } from "../stores/rootReducer";
 import { RootState } from "../stores/types/rootState";

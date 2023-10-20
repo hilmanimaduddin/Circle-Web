@@ -1,41 +1,34 @@
 import {
+  Box,
+  Button,
   Grid,
   GridItem,
-  Box,
-  Text,
-  ModalOverlay,
-  Button,
+  Image,
+  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
+  ModalOverlay,
+  Text,
   useDisclosure,
-  Image,
-  Input,
 } from "@chakra-ui/react";
 import { ChangeEvent, useEffect, useState } from "react";
-import { RightBar, UserProfile } from "../features/thread/component/RightBar";
-import { SideBar } from "../features/thread/component/SideBar";
-import ThreadCard from "../features/thread/component/ThreadCard";
-import { CreatePost } from "../features/thread/component/createPost";
-import { useParams, Link } from "react-router-dom";
-import { API } from "../lib/api";
-import { ThreadCardType } from "../types/interface/IType";
-import { useDispatch } from "react-redux";
-import { THREAD_GET } from "../stores/rootReducer";
-import { RootState } from "../stores/types/rootState";
+import { VscArrowLeft } from "react-icons/vsc";
 import { useSelector } from "react-redux";
-import { ProfileUser } from "../features/auth/component/profile";
-import { VscHeart, VscHeartFilled, VscArrowLeft } from "react-icons/vsc";
+import { Link } from "react-router-dom";
+import { SideBar } from "../features/thread/component/SideBar";
 import { UserBar } from "../features/thread/component/UserBar";
+import { API } from "../lib/api";
 import ThreadCardNew from "../pagesNew/Component/ThreadCardNew";
+import { RootState } from "../stores/types/rootState";
 
 export function Profile() {
-  const [thread, setThread] = useState<ThreadCardType[]>([]);
+  // const [thread, setThread] = useState<ThreadCardType[]>([]);
   const [data, setData] = useState<any[]>([]);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -72,13 +65,6 @@ export function Profile() {
       });
     }
   }
-  console.log("form", form);
-
-  const prop = thread.find((props) => props.id == user.id);
-  console.log(prop);
-
-  //   const like = useSelector((state: RootState) => state.thread);
-  //   console.log(like);
 
   useEffect(() => {
     fetchData();
