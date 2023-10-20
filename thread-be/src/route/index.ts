@@ -5,7 +5,7 @@ import RepliesController from "../controllers/RepliesController";
 import ThreadsController from "../controllers/ThreadsController";
 import authenticate from "../middlewares/auth";
 import { upload } from "../middlewares/uploadFile";
-import ThreadsQueue from "../queues/ThreadsQueue";
+// import ThreadsQueue from "../queues/ThreadsQueue";
 import FollowsController from "../controllers/FollowsController";
 import LikesController from "../controllers/LikesController";
 
