@@ -1,18 +1,14 @@
 import { Box, Button, Grid, GridItem, Image, Text } from "@chakra-ui/react";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { VscHeart, VscHeartFilled, VscArrowLeft } from "react-icons/vsc";
-import { useParams, Link } from "react-router-dom";
-import GetReply from "../features/thread/component/GetReply";
-import { AddReply } from "../features/thread/component/ReplyPost";
+import { VscArrowLeft, VscHeart, VscHeartFilled } from "react-icons/vsc";
+import { useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 import { RightBar } from "../features/thread/component/RightBar";
 import { SideBar } from "../features/thread/component/SideBar";
-import { CreatePost } from "../features/thread/component/createPost";
-import { useReply } from "../features/thread/hooks/useReply";
 import { API } from "../lib/api";
-import { ThreadCardType } from "../types/interface/IType";
 import { RootState } from "../stores/types/rootState";
-import { useSelector } from "react-redux";
+import { ThreadCardType } from "../types/interface/IType";
 import { ReplyNew } from "./Component/ReplyPostNew";
 
 export function DetailBlog() {
@@ -23,7 +19,7 @@ export function DetailBlog() {
   const [thread, setThread] = useState<ThreadCardType>();
   const [likee, setLikee] = useState<any[]>([]);
 
-  const { reply } = useReply();
+  // const { reply } = useReply();
 
   async function fetchData() {
     try {

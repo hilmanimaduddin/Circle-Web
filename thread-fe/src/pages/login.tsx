@@ -14,7 +14,7 @@ import { useLogin } from "../features/auth/hooks/useLogin";
 import { useSelector } from "react-redux";
 import { RootState } from "../stores/types/rootState";
 
-export function Login() {
+export default function Login() {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
 

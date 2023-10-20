@@ -2,7 +2,7 @@ import { Box, Button, Container, Input, Stack, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useRegister } from "../features/auth/hooks/useRegister";
 
-export function Register() {
+export default function Register() {
   const { handleChange, handleRegister } = useRegister();
 
   return (

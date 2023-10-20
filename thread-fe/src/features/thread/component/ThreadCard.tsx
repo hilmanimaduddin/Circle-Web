@@ -1,24 +1,18 @@
 import { Box, Button, Image, Text } from "@chakra-ui/react";
 import moment from "moment";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { VscHeart, VscHeartFilled } from "react-icons/vsc";
-import { Link, useParams } from "react-router-dom";
-import { Likes, ThreadCardType } from "../../../types/interface/IType";
-import { useThreadCard } from "../hooks/useThreadCard";
+import { Link } from "react-router-dom";
 import { API } from "../../../lib/api";
-import { RootState } from "../../../stores/types/rootState";
-import { useSelector } from "react-redux";
+import { ThreadCardType } from "../../../types/interface/IType";
 
 const ThreadCard = (props: ThreadCardType) => {
   const [likesCount, setLikedCount] = useState(props.likes_count as number);
-  const coba = props.is_liked;
-  console.log("coba", coba);
 
   const [isLikes, setIsLiked] = useState(props.is_liked);
-  const user = useSelector((state: RootState) => state.user);
+  // const user = useSelector((state: RootState) => state.user);
   const id = props.id;
-  const thread = useSelector((state: RootState) => state.thread.threads);
-  console.log("islikeddd", isLikes);
+  // const thread = useSelector((state: RootState) => state.thread.threads);
 
   const handleLike = () => {
     try {

@@ -1,9 +1,8 @@
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { RootState } from "../../../stores/types/rootState";
+import { ChangeEvent, FormEvent, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { API } from "../../../lib/api";
 import { THREAD_GET } from "../../../stores/rootReducer";
-import { ChangeEvent, FormEvent, useRef, useState } from "react";
+import { RootState } from "../../../stores/types/rootState";
 import { IGetThreads } from "../../../types/interface/IType";
 
 export function useThreadCard() {
