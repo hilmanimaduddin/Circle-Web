@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import { VscArrowLeft } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { UserProfile } from "../features/thread/component/RightBar";
+import { RightBarFollow } from "../features/thread/component/RightBarFollow";
 import { SideBar } from "../features/thread/component/SideBar";
-import ThreadCard from "../features/thread/component/ThreadCard";
+import { UserBar } from "../features/thread/component/UserBar";
 import { API } from "../lib/api";
+import ThreadCardNew from "../pagesNew/Component/ThreadCardNew";
 import { THREAD_GET } from "../stores/rootReducer";
 import { RootState } from "../stores/types/rootState";
 import { UserType } from "../types/interface/IType";
@@ -112,7 +113,7 @@ export function ProfileUserData() {
           </Box>
           {data.map((item, index) => {
             return (
-              <ThreadCard
+              <ThreadCardNew
                 key={index}
                 id={item.id}
                 author_picture={item.user?.profile_picture}
@@ -131,17 +132,9 @@ export function ProfileUserData() {
           })}
         </GridItem>
         <GridItem colSpan={3}>
-          {/* <RightBar /> */}
-          <Box
-            border="2px"
-            borderColor="#2f2f2f"
-            borderRadius="15px"
-            margin={2}
-            p={3}
-          >
-            <Text mb={4}>Profile</Text>
-            <UserProfile />
-          </Box>
+          <RightBarFollow />
+
+          <UserBar />
         </GridItem>
       </Grid>
     </>

@@ -1,19 +1,15 @@
 import { Box, Button, Text } from "@chakra-ui/react";
 import { FaHeart, FaHome, FaSearch, FaUser } from "react-icons/fa";
-import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { RootState } from "../../../stores/types/rootState";
-import { AUTH_LOGOUT } from "../../../stores/rootReducer";
 import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { AUTH_LOGOUT } from "../../../stores/rootReducer";
 
 export function SideBar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.user);
 
   function logOut() {
     dispatch(AUTH_LOGOUT());
-    // localStorage.removeItem("token");
     navigate("/login");
   }
   return (
@@ -27,20 +23,22 @@ export function SideBar() {
             <FaHome /> Home
           </Text>
         </Link>
-        <Text display="flex" gap={2} alignItems="center">
+        <Text display="none" gap={2} alignItems="center">
           <FaSearch /> Search
         </Text>
-        <Text display="flex" gap={2} alignItems="center">
-          <FaHeart /> Follow
-        </Text>
+        <Link to={`/follower`}>
+          <Text display="flex" gap={2} alignItems="center">
+            <FaHeart /> Follow
+          </Text>
+        </Link>
         <Link to={`/profil`}>
           <Text display="flex" gap={2} alignItems="center">
             <FaUser /> Profile
           </Text>
         </Link>
-        <Button borderRadius={50} bgColor="#04a51e">
+        {/* <Button borderRadius={50} bgColor="#04a51e">
           <Link to="/login">Create Post</Link>
-        </Button>
+        </Button> */}
         <Button borderRadius={50} bgColor="#04a51e" onClick={logOut}>
           Log Out
         </Button>

@@ -29,22 +29,20 @@ import { RootState } from "../stores/types/rootState";
 import { useSelector } from "react-redux";
 import { ProfileUser } from "../features/auth/component/profile";
 import { VscHeart, VscHeartFilled, VscArrowLeft } from "react-icons/vsc";
+import { UserBar } from "../features/thread/component/UserBar";
+import ThreadCardNew from "../pagesNew/Component/ThreadCardNew";
 
 export function Profile() {
   const [thread, setThread] = useState<ThreadCardType[]>([]);
+  const [data, setData] = useState<any[]>([]);
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   async function fetchData() {
     try {
-      const res = await API.get(`/threadUser?user_id=${user.id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.token}`,
-        },
-      });
-      dispatch(THREAD_GET(res.data));
-      setThread(res.data);
+      const res = await API.get(`/thread-user`);
+      setData(res.data);
     } catch (error) {
       console.error("error");
     }
@@ -240,9 +238,9 @@ export function Profile() {
               </Modal>
             </Box>
           </Box>
-          {thread.map((item, index) => {
+          {data.map((item, index) => {
             return (
-              <ThreadCard
+              <ThreadCardNew
                 key={index}
                 id={item.id}
                 author_picture={item.user?.profile_picture}
@@ -262,16 +260,8 @@ export function Profile() {
         </GridItem>
         <GridItem colSpan={3}>
           {/* <RightBar /> */}
-          <Box
-            border="2px"
-            borderColor="#2f2f2f"
-            borderRadius="15px"
-            margin={2}
-            p={3}
-          >
-            <Text mb={4}>Profile</Text>
-            <UserProfile />
-          </Box>
+
+          <UserBar />
         </GridItem>
       </Grid>
     </>

@@ -16,6 +16,7 @@ router.get("/", (reg: Request, res: Response) => {
 });
 
 router.get("/thread", authenticate, ThreadsController.find);
+router.get("/thread-user", authenticate, ThreadsController.findByUser);
 // router.post(
 //   "/thread/create",
 //   authenticate,
@@ -40,7 +41,11 @@ router.get("/auth/check", authenticate, AuthController.check);
 router.get("/replies", RepliesController.find);
 router.post("/replies/create", authenticate, RepliesController.create);
 
-router.get("/follows", authenticate, FollowsController.find);
+router.get("/notfollowed", authenticate, FollowsController.notFollowed);
+router.get("/follower", authenticate, FollowsController.findFollower);
+router.get("/followed", authenticate, FollowsController.findFollowed);
+router.get("/follower/:user", authenticate, FollowsController.findFollowerUser);
+router.get("/followed/:user", authenticate, FollowsController.findFollowedUser);
 router.post("/follow", authenticate, FollowsController.create);
 router.delete(
   "/follow/:followed_user_id",

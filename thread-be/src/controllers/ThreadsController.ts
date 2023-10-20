@@ -5,6 +5,9 @@ class ThreadsController {
   find(req: Request, res: Response) {
     ThreadsService.find(req, res);
   }
+  findByUser(req: Request, res: Response) {
+    ThreadsService.findByUser(req, res);
+  }
 
   create(req: Request, res: Response) {
     ThreadsService.create(req, res);

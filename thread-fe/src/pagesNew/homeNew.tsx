@@ -66,6 +66,9 @@ export function HomeNew() {
   }
 
   function handleSubmit(event: FormEvent) {
+    // if (!form.content) {
+    //   return alert("Please enter your message");
+    // }
     event.preventDefault();
     postData();
     setTime("yes");
@@ -115,7 +118,10 @@ export function HomeNew() {
                   borderRadius="full"
                   boxSize="30px"
                   objectFit="cover"
-                  src={user.profile_picture}
+                  src={
+                    user?.profile_picture ??
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/694px-Unknown_person.jpg"
+                  }
                   alt="image"
                 />
                 <form

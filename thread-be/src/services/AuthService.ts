@@ -14,6 +14,7 @@ class AuthServices {
     try {
       const loginSession = res.locals.loginSession;
       const users = await this.authRepository.find({
+        relations: ["follower", "followed"],
         // where: {
         //   id: loginSession.user.id,
         // },

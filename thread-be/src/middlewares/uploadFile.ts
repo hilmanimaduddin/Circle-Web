@@ -20,7 +20,11 @@ export const upload = (image: string) => {
         console.log(err);
         return res.status(400).json({ error: "file upload failed." });
       }
-      res.locals.filename = req.file.filename;
+      const locals = Object.assign({}, res.locals, req.body);
+      res.locals = locals;
+      if (req.file) {
+        res.locals.filename = req.file.filename;
+      }
       next();
     });
   };

@@ -1,14 +1,11 @@
 import { Box, Button, Image, Input, Stack, Text } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
-import { useReply } from "../../features/thread/hooks/useReply";
-import { RootState } from "../../stores/types/rootState";
-import GetReply from "../../features/thread/component/GetReply";
 import moment from "moment";
-import { VscHeartFilled } from "react-icons/vsc";
-import { API } from "../../lib/api";
 import { ChangeEvent, useEffect, useState } from "react";
-import { IReply } from "../../types/interface/IReply";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { API } from "../../lib/api";
+import { RootState } from "../../stores/types/rootState";
+import { IReply } from "../../types/interface/IReply";
 
 export function ReplyNew() {
   const { id } = useParams();
@@ -20,7 +17,7 @@ export function ReplyNew() {
   });
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    const { name, value, files } = event.target;
+    const { name, value } = event.target;
     setForm({
       ...form,
       [name]: value,
@@ -61,7 +58,10 @@ export function ReplyNew() {
             borderRadius="full"
             boxSize="30px"
             objectFit="cover"
-            src={user.profile_picture}
+            src={
+              user?.profile_picture ??
+              "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/694px-Unknown_person.jpg"
+            }
             alt="image"
           />
           <Box width={"100%"} display={"flex"} gap={4}>
@@ -96,7 +96,10 @@ export function ReplyNew() {
             >
               <Image
                 mt={2}
-                src={item.user?.profile_picture}
+                src={
+                  item.user?.profile_picture ??
+                  "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/694px-Unknown_person.jpg"
+                }
                 alt=""
                 borderRadius="full"
                 boxSize={"35px"}

@@ -96,7 +96,7 @@ const ThreadCardNew = (props: any) => {
             <Link to={`/profil/user/${props.author_id}`}>
               {props.author_full_name}
             </Link>
-            <Box>{props.id}</Box>
+            {/* <Box>{props.id}</Box> */}
             <Text color={"#6f6f6f"} fontStyle={"italic"}>
               @{props.author_username}
             </Text>

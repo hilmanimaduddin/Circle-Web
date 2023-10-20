@@ -3,22 +3,21 @@
 // import "./App.css";
 // import "../src/features/thread/component/ThreadCard";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Outlet, Route, Routes, useNavigate } from "react-router-dom";
-import ThreadCard from "../src/features/thread/component/ThreadCard";
-import { Blog } from "./pages/BlogDetail";
-import { Home } from "./pages/home";
 import { API, setAuthToken } from "./lib/api";
+import { Blog } from "./pages/BlogDetail";
+import { FollowSuggest } from "./pages/Follow/FollowSuggest";
+import { Followed } from "./pages/Follow/Followed";
+import { Follower } from "./pages/Follow/Follower";
 import { Login } from "./pages/Login";
+import { Profile } from "./pages/Profile";
+import { ProfileUserData } from "./pages/ProfileUser";
 import { Register } from "./pages/Register";
-import { useDispatch } from "react-redux";
+import { DetailBlog } from "./pagesNew/DetailBlogNew";
+import { HomeNew } from "./pagesNew/homeNew";
 import { AUTH_CHECK, AUTH_ERROR } from "./stores/rootReducer";
 import { RootState } from "./stores/types/rootState";
-import { useSelector } from "react-redux";
-import { Profile } from "./pages/Profile";
-import { ProfileUser } from "./features/auth/component/profile";
-import { ProfileUserData } from "./pages/ProfileUser";
-import { HomeNew } from "./pagesNew/homeNew";
-import { DetailBlog } from "./pagesNew/DetailBlogNew";
 
 function App() {
   const [isLoading, seIsLoading] = useState<boolean>(true);
@@ -64,7 +63,7 @@ function App() {
       {isLoading ? null : (
         <Routes>
           {/* <Route path="/" element={<IsLogin />}></Route> */}
-          <Route path="/" element={<Home />}></Route>
+          <Route path="/" element={<HomeNew />}></Route>
           <Route path="/blog/:id" element={<Blog />}></Route>
           {/* <Route path="/" element={<IsNotLogin />}></Route> */}
           <Route path="/register" element={<Register />}></Route>
@@ -73,6 +72,9 @@ function App() {
           <Route path="/profil/user/:id" element={<ProfileUserData />}></Route>
           {/* New Edit */}
           <Route path="/home" element={<HomeNew />}></Route>
+          <Route path="/follower" element={<Follower />}></Route>
+          <Route path="/followed" element={<Followed />}></Route>
+          <Route path="/followSuggest" element={<FollowSuggest />}></Route>
           <Route path="/detail-blog/:id" element={<DetailBlog />}></Route>
         </Routes>
       )}
