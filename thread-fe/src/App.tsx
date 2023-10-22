@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { API, setAuthToken } from "./lib/api";
 import { FollowSuggest } from "./pages/Follow/FollowSuggest";
 import { Followed } from "./pages/Follow/Followed";
@@ -18,14 +18,18 @@ function App() {
   const [isLoading, seIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
   // const user = useSelector((state: RootState) => state.user);
 
   async function authCheck() {
     try {
       setAuthToken(localStorage.token);
+
       const response = await API.get("/auth/check");
       dispatch(AUTH_CHECK(response.data.user));
       console.log("auth check berhasil", response.data.user);
+      const origin = location.state?.pathname?.origin || "/";
+      navigate(origin, { replace: true });
       seIsLoading(false);
     } catch (err) {
       dispatch(AUTH_ERROR());

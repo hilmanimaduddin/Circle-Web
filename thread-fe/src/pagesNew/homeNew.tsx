@@ -83,8 +83,8 @@ export function HomeNew() {
       console.log("data", formData);
       fetchData();
       setForm(res.data);
-    } catch (error) {
-      console.error({ error: "salah ya ni" });
+    } catch (err) {
+      console.error({ error: "salah ya ni", err });
     }
   }
   const thread = useSelector((state: RootState) => state.thread.threads);
