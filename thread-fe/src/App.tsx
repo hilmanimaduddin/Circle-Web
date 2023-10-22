@@ -29,6 +29,8 @@ function App() {
       dispatch(AUTH_CHECK(response.data.user));
       console.log("auth check berhasil", response.data.user);
       const origin = location.state?.pathname?.origin || "/";
+      console.log("origin", origin);
+
       navigate(origin, { replace: true });
       seIsLoading(false);
     } catch (err) {
