@@ -1,10 +1,10 @@
-import * as bcrypt from "bcrypt";
+import bcrypt = require("bcrypt");
 import { Request, Response } from "express";
-import * as jwt from "jsonwebtoken";
 import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { User } from "../entities/Users";
 import { userScema } from "../utils/validation";
+import jwt = require("jsonwebtoken");
 
 class AuthServices {
   private readonly authRepository: Repository<User> =
@@ -25,7 +25,7 @@ class AuthServices {
 
       return res.status(200).json(users);
     } catch (err) {
-      return res.status(500).json({ error: "kok gk ada user?" });
+      return res.status(500).json({ error: err });
     }
   }
 
@@ -67,6 +67,50 @@ class AuthServices {
       });
     } catch (err) {
       return res.status(500).json({ error: "ada kesalahan saat membuat akun" });
+    }
+  }
+
+  async updateUser(req: Request, res: Response) {
+    try {
+      const loginSession = res.locals.loginSession;
+
+      const data = req.body;
+      const filename = req.file ? req.file.path : "";
+      const user = await this.authRepository.findOne({
+        where: {
+          id: loginSession.user.id,
+        },
+      });
+
+      if (filename != "") {
+        user.profile_picture = filename;
+      }
+
+      if (data.username != "") {
+        user.username = data.username;
+      }
+      if (data.replies != "") {
+        user.replies = data.replies;
+      }
+      if (data.likes != "") {
+        user.likes = data.likes;
+      }
+      if (data.email != "") {
+        user.email = data.email;
+      }
+      if (data.full_name != "") {
+        user.full_name = data.full_name;
+      }
+      if (data.profile_description != "") {
+        user.profile_description = data.profile_description;
+      }
+
+      const updateUser = this.authRepository.save(user);
+      return res.status(200).json({ updateUser, value: "berhasil update" });
+    } catch (err) {
+      return res
+        .status(500)
+        .json({ error: "ada kesalahan saat update akun", err });
     }
   }
 
@@ -116,7 +160,7 @@ class AuthServices {
         token,
       });
     } catch (err) {
-      return res.status(500).json({ error: "sorry there was an error" });
+      return res.status(500).json({ error: err });
     }
   }
 
@@ -149,7 +193,7 @@ class AuthServices {
         message: "Token is valid",
       });
     } catch (err) {
-      return res.status(500).json({ error: "sorry there was an error" });
+      return res.status(500).json({ error: err });
     }
   }
 }

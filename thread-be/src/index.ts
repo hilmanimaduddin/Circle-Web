@@ -1,4 +1,4 @@
-import * as express from "express";
+import express = require("express");
 import { Request, Response } from "express-serve-static-core";
 import { AppDataSource } from "./data-source";
 import router from "./route";
@@ -9,7 +9,7 @@ AppDataSource.initialize()
     const app = express();
     const port = 5000;
 
-    var cors = require("cors");
+    let cors = require("cors");
     // console.log(req)
 
     app.use(cors());

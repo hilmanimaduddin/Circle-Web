@@ -1,4 +1,4 @@
-import * as Joi from "joi";
+import Joi = require("joi");
 
 export const userScema = Joi.object({
   username: Joi.string().required().min(3).max(30),

@@ -10,6 +10,10 @@ class AuthController {
     UserServices.find(req, res);
   }
 
+  updateUser(req: Request, res: Response) {
+    UserServices.updateUser(req, res);
+  }
+
   login(req: Request, res: Response) {
     UserServices.login(req, res);
   }

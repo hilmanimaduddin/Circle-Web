@@ -1,4 +1,3 @@
-import { v2 as cloudinary } from "cloudinary";
 import "dotenv/config";
 import { Request, Response } from "express";
 import { Repository } from "typeorm";
@@ -72,25 +71,26 @@ class ThreadsService {
   async create(req: Request, res: Response) {
     try {
       const data = req.body;
-      const filename = req.file ? req.file.filename : "";
+      // const filename = req.file ? req.file.filename : "";
+      const filename = req.file ? req.file.path : "";
       // const filename = req.file.fieldname;
       const loginSession = res.locals.loginSession;
 
       console.log("req.file", req.file);
 
-      cloudinary.config({
-        cloud_name: process.env.CLOUD_NAME,
-        api_key: process.env.API_KEY,
-        api_secret: process.env.API_SECRET,
-      });
+      // cloudinary.config({
+      //   cloud_name: process.env.CLOUD_NAME,
+      //   api_key: process.env.API_KEY,
+      //   api_secret: process.env.API_SECRET,
+      // });
 
-      let cloudinaryResponse = null;
-      if (req.file !== undefined) {
-        cloudinaryResponse = await cloudinary.uploader.upload(
-          "./uploads/" + filename
-        );
-      }
-      console.log("cloud Res", cloudinaryResponse);
+      // let cloudinaryResponse = null;
+      // if (req.file !== undefined) {
+      //   cloudinaryResponse = await cloudinary.uploader.upload(
+      //     "./uploads/" + filename
+      //   );
+      // }
+      // console.log("cloud Res", cloudinaryResponse);
 
       const thread = this.threadRepository.create({
         content: data.content,
@@ -100,7 +100,7 @@ class ThreadsService {
       });
 
       if (req.file !== undefined) {
-        thread.image = cloudinaryResponse.secure_url;
+        thread.image = filename;
       }
       const createThread = this.threadRepository.save(thread);
       return res.status(200).json(createThread);
@@ -138,6 +138,7 @@ class ThreadsService {
   async update(req: Request, res: Response) {
     try {
       const id = parseInt(req.params.id);
+      const filename = req.file ? req.file.path : "";
       const thread = await this.threadRepository.findOne({
         where: {
           id: id,
@@ -145,11 +146,15 @@ class ThreadsService {
       });
       const data = req.body;
 
+      if (filename != "") {
+        thread.image = filename;
+      }
+
+      // if (data.image != "") {
+      //   thread.image = data.image;
+      // }
       if (data.content != "") {
         thread.content = data.content;
-      }
-      if (data.image != "") {
-        thread.image = data.image;
       }
       if (data.replies != "") {
         thread.replies = data.replies;

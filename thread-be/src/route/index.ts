@@ -1,4 +1,4 @@
-import * as express from "express";
+import express = require("express");
 import { Request, Response } from "express";
 import AuthController from "../controllers/AuthController";
 import RepliesController from "../controllers/RepliesController";
@@ -31,11 +31,17 @@ router.post(
 );
 router.get("/thread/:id", ThreadsController.findOne);
 router.delete("/thread/delete/:id", ThreadsController.delete);
-router.patch("/thread/update/:id", ThreadsController.update);
+router.patch("/thread/update/:id", upload("image"), ThreadsController.update);
 
 router.get("/auth/", AuthController.find);
 router.post("/auth/register", AuthController.register);
 router.post("/auth/login", AuthController.login);
+router.post(
+  "/auth/update",
+  authenticate,
+  upload("image"),
+  AuthController.updateUser
+);
 router.get("/auth/check", authenticate, AuthController.check);
 
 router.get("/replies", RepliesController.find);
