@@ -28,7 +28,7 @@ function App() {
       const response = await API.get("/auth/check");
       dispatch(AUTH_CHECK(response.data.user));
       console.log("auth check berhasil", response.data.user);
-      const origin = location.state?.pathname?.origin || "/";
+      const origin = location?.pathname;
       console.log("origin", origin);
 
       navigate(origin, { replace: true });
