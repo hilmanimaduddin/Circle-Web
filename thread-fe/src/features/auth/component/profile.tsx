@@ -16,7 +16,10 @@ export function ProfileUser() {
           flexDirection={"column"}
         >
           <Image
-            src="https://i.vimeocdn.com/video/1118803646-cf91319cca62e75b948f598e639f3a7e1e295d7bf007d09df37b778ed32683a4-d_640x360.jpg"
+            src={
+              user.profile_background ??
+              "https://i.vimeocdn.com/video/1118803646-cf91319cca62e75b948f598e639f3a7e1e295d7bf007d09df37b778ed32683a4-d_640x360.jpg"
+            }
             alt=""
           />
           <Image

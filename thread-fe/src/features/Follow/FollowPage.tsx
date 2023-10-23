@@ -8,6 +8,7 @@ interface IFollowerUser {
   full_name: string;
   username: string;
   profile_picture: string;
+  profile_background: string;
   profile_description: string;
 }
 interface IGetFollow {

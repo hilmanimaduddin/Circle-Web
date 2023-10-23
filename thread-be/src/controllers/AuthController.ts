@@ -14,6 +14,14 @@ class AuthController {
     UserServices.updateUser(req, res);
   }
 
+  updateProfile(req: Request, res: Response) {
+    UserServices.updateProfile(req, res);
+  }
+
+  updateBackground(req: Request, res: Response) {
+    UserServices.updateBackground(req, res);
+  }
+
   login(req: Request, res: Response) {
     UserServices.login(req, res);
   }

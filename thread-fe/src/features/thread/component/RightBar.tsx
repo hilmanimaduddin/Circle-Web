@@ -42,7 +42,10 @@ export function RightBar() {
           height={"200px"}
           width={"100%"}
           objectFit={"cover"}
-          src="https://i2.wp.com/blog.tripcetera.com/id/wp-content/uploads/2020/10/pulau-padar.jpg"
+          src={
+            user.profile_background ??
+            "https://i2.wp.com/blog.tripcetera.com/id/wp-content/uploads/2020/10/pulau-padar.jpg"
+          }
           alt=""
         />
         <Image

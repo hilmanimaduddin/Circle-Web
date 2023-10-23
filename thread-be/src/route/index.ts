@@ -36,11 +36,18 @@ router.patch("/thread/update/:id", upload("image"), ThreadsController.update);
 router.get("/auth/", AuthController.find);
 router.post("/auth/register", AuthController.register);
 router.post("/auth/login", AuthController.login);
+router.post("/auth/update", authenticate, AuthController.updateUser);
 router.post(
-  "/auth/update",
+  "/auth/update/image",
   authenticate,
   upload("image"),
-  AuthController.updateUser
+  AuthController.updateProfile
+);
+router.post(
+  "/auth/update/background",
+  authenticate,
+  upload("image"),
+  AuthController.updateBackground
 );
 router.get("/auth/check", authenticate, AuthController.check);
 

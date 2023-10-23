@@ -7,6 +7,7 @@ const initialAuthState: UserType = {
   full_name: "",
   email: "",
   profile_picture: "",
+  profile_background: "",
   profile_description: "",
 };
 
@@ -24,6 +25,7 @@ export const authSlice = createSlice({
         full_name: payload.user.full_name,
         email: payload.user.email,
         profile_picture: payload.user.profile_picture,
+        profile_background: payload.user.profile_background,
         profile_description: payload.user.profile_description,
       };
       return user;
@@ -37,8 +39,10 @@ export const authSlice = createSlice({
         full_name: payload.full_name,
         email: payload.email,
         profile_picture: payload.profile_picture,
+        profile_background: payload.profile_background,
         profile_description: payload.profile_description,
       };
+      console.log("redux auth check :", user);
 
       return user;
     },

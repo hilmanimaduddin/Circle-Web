@@ -89,7 +89,10 @@ export function ProfileUserData() {
                 flexDirection={"column"}
               >
                 <Image
-                  src="https://i.vimeocdn.com/video/1118803646-cf91319cca62e75b948f598e639f3a7e1e295d7bf007d09df37b778ed32683a4-d_640x360.jpg"
+                  src={
+                    prop?.profile_background ??
+                    "https://i.vimeocdn.com/video/1118803646-cf91319cca62e75b948f598e639f3a7e1e295d7bf007d09df37b778ed32683a4-d_640x360.jpg"
+                  }
                   alt=""
                 />
                 <Image
@@ -117,6 +120,7 @@ export function ProfileUserData() {
                 key={index}
                 id={item.id}
                 author_picture={item.user?.profile_picture}
+                profile_background={item.user?.profile_background}
                 author_full_name={item.user?.full_name}
                 author_username={item.user?.username}
                 posted_at={item.posted_at}

@@ -7,6 +7,7 @@ export const userScema = Joi.object({
   password: Joi.string().required().min(4).max(30),
   id: Joi.number(),
   profile_picture: Joi.string(),
+  profile_background: Joi.string(),
   profile_description: Joi.string(),
 });
 
@@ -17,5 +18,6 @@ export const userScemaUpdate = Joi.object({
   password: Joi.string().min(4).max(30),
   id: Joi.number(),
   profile_picture: Joi.string(),
+  profile_background: Joi.string(),
   profile_description: Joi.string(),
 });

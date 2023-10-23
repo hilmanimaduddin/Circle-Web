@@ -31,6 +31,7 @@ export interface UserType {
   password?: string;
   email?: string;
   profile_picture?: string;
+  profile_background?: string;
   profile_description?: string;
 }
 
@@ -54,5 +55,6 @@ export interface Auth {
   full_name: string;
   email: string;
   profile_picture: string;
+  profile_background: string;
   profile_description: string;
 }

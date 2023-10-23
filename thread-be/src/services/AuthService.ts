@@ -75,16 +75,13 @@ class AuthServices {
       const loginSession = res.locals.loginSession;
 
       const data = req.body;
-      const filename = req.file ? req.file.path : "";
+      console.log("data", data);
+
       const user = await this.authRepository.findOne({
         where: {
           id: loginSession.user.id,
         },
       });
-
-      if (filename != "") {
-        user.profile_picture = filename;
-      }
 
       if (data.username != "") {
         user.username = data.username;
@@ -103,6 +100,58 @@ class AuthServices {
       }
       if (data.profile_description != "") {
         user.profile_description = data.profile_description;
+      }
+
+      console.log("user", user);
+
+      const updateUser = this.authRepository.save(user);
+      console.log(updateUser);
+
+      return res.status(200).json({ updateUser, value: "berhasil update" });
+    } catch (err) {
+      return res
+        .status(500)
+        .json({ error: "ada kesalahan saat update akun", err });
+    }
+  }
+
+  async updateProfile(req: Request, res: Response) {
+    try {
+      const loginSession = res.locals.loginSession;
+
+      const filename = req.file ? req.file.path : "";
+      const user = await this.authRepository.findOne({
+        where: {
+          id: loginSession.user.id,
+        },
+      });
+
+      if (filename != "") {
+        user.profile_picture = filename;
+      }
+
+      const updateUser = this.authRepository.save(user);
+      return res.status(200).json({ updateUser, value: "berhasil update" });
+    } catch (err) {
+      return res
+        .status(500)
+        .json({ error: "ada kesalahan saat update akun", err });
+    }
+  }
+
+  async updateBackground(req: Request, res: Response) {
+    try {
+      const loginSession = res.locals.loginSession;
+
+      const filename = req.file ? req.file.path : "";
+      const user = await this.authRepository.findOne({
+        where: {
+          id: loginSession.user.id,
+        },
+      });
+
+      if (filename != "") {
+        user.profile_background = filename;
       }
 
       const updateUser = this.authRepository.save(user);
@@ -130,6 +179,7 @@ class AuthServices {
           "email",
           "password",
           "profile_picture",
+          "profile_background",
           "profile_description",
         ],
       });
@@ -150,6 +200,7 @@ class AuthServices {
         username: checkEmail.username,
         email: checkEmail.email,
         profile_picture: checkEmail.profile_picture,
+        profile_background: checkEmail.profile_background,
         profile_description: checkEmail.profile_description,
       });
 
@@ -179,12 +230,18 @@ class AuthServices {
           "email",
           "password",
           "profile_picture",
+          "profile_background",
           "profile_description",
         ],
       });
 
       if (user.profile_picture == null) {
         user.profile_picture =
+          "https://www.copaster.com/wp-content/uploads/2023/03/pp-kosong-wa-default-300x279.jpeg";
+      }
+
+      if (user.profile_background == null) {
+        user.profile_background =
           "https://www.copaster.com/wp-content/uploads/2023/03/pp-kosong-wa-default-300x279.jpeg";
       }
 

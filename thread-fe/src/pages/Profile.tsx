@@ -15,7 +15,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { VscArrowLeft } from "react-icons/vsc";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -24,7 +24,15 @@ import { UserBar } from "../features/thread/component/UserBar";
 import { API } from "../lib/api";
 import ThreadCardNew from "../pagesNew/Component/ThreadCardNew";
 import { RootState } from "../stores/types/rootState";
+import ProfileImage from "../pagesNew/uploadProfile/ProfileImage";
+import ProfileBackground from "../pagesNew/uploadProfile/ProfileBackground";
 
+interface ProfileProps {
+  username: string;
+  full_name: string;
+  email: string;
+  profile_description: string;
+}
 export function Profile() {
   // const [thread, setThread] = useState<ThreadCardType[]>([]);
   const [data, setData] = useState<any[]>([]);
@@ -40,35 +48,46 @@ export function Profile() {
       console.error("error");
     }
   }
-  console.log("user", user);
 
-  const [form, setForm] = useState({
-    username: user?.username,
-    fullname: user?.full_name,
-    email: user?.email,
-    password: "",
-    description: user?.profile_description,
-    image: "",
+  const [form, setForm] = useState<ProfileProps>({
+    username: user?.username as string,
+    full_name: user?.full_name as string,
+    email: user?.email as string,
+    profile_description: user?.profile_description as string,
   });
+  console.log("form", form);
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    const { name, value, files } = event.target;
-    if (files) {
-      setForm({
-        ...form,
-        [name]: files[0],
-      });
-    } else {
-      setForm({
-        ...form,
-        [name]: value,
-      });
+    setForm({
+      ...form,
+      [event.target.name]: event.target.value,
+    });
+  }
+
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    handleUpdate();
+    onClose();
+  }
+
+  async function handleUpdate() {
+    try {
+      const res = await API.post(`/auth/update`, form);
+      // console.log("formData", formData);
+      console.log("res", res);
+
+      console.log("success");
+      fetchData();
+    } catch (error) {
+      console.error("error", error);
     }
   }
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  console.log("user", user);
 
   return (
     <>
@@ -105,11 +124,23 @@ export function Profile() {
                 display={"flex"}
                 flexDirection={"column"}
               >
-                <Image
+                <ProfileBackground
+                  image={
+                    user.profile_background ??
+                    "https://i.vimeocdn.com/video/1118803646-cf91319cca62e75b948f598e639f3a7e1e295d7bf007d09df37b778ed32683a4-d_640x360.jpg"
+                  }
+                />
+                {/* <Image
                   src="https://i.vimeocdn.com/video/1118803646-cf91319cca62e75b948f598e639f3a7e1e295d7bf007d09df37b778ed32683a4-d_640x360.jpg"
                   alt=""
+                /> */}
+                <ProfileImage
+                  image={
+                    user.profile_picture ??
+                    "https://www.copaster.com/wp-content/uploads/2023/03/pp-kosong-wa-default-300x279.jpeg"
+                  }
                 />
-                <Image
+                {/* <Image
                   borderRadius="full"
                   boxSize="140px"
                   mt={"-80px"}
@@ -120,7 +151,7 @@ export function Profile() {
                     "https://www.copaster.com/wp-content/uploads/2023/03/pp-kosong-wa-default-300x279.jpeg"
                   }
                   alt="profil"
-                />
+                /> */}
                 <Box display={"flex"} justifyContent={"space-between"}>
                   <Box>
                     <Text>{user.full_name}</Text>
@@ -163,9 +194,9 @@ export function Profile() {
                         <Input
                           type="text"
                           id="name"
-                          name="fullname"
+                          name="full_name"
                           placeholder="Full Name"
-                          value={form.fullname}
+                          value={form.full_name}
                           onChange={handleChange}
                         />
                       </label>
@@ -180,45 +211,26 @@ export function Profile() {
                           onChange={handleChange}
                         />
                       </label>
-                      <label htmlFor="password">
-                        Password
-                        <Input
-                          type="password"
-                          id="password"
-                          name="password"
-                          placeholder="Your Password"
-                          value={form.password}
-                          onChange={handleChange}
-                        />
-                      </label>
                       <label htmlFor="description">
                         Description
                         <Input
                           type="text"
                           id="description"
-                          name="description"
+                          name="profile_description"
                           placeholder="Your Description"
-                          value={form.description}
-                          onChange={handleChange}
-                        />
-                      </label>
-                      <label htmlFor="image">
-                        Image
-                        <Input
-                          p={1}
-                          type="file"
-                          id="image"
-                          name="image"
+                          value={form.profile_description}
                           onChange={handleChange}
                         />
                       </label>
                     </Box>
                   </ModalBody>
                   <ModalFooter>
-                    <Button colorScheme="blue" mr={3} onClick={onClose}>
-                      Close
+                    <Button colorScheme="red" mr={3} onClick={onClose}>
+                      Cancel
                     </Button>
-                    <Button variant="ghost">Secondary Action</Button>
+                    <Button colorScheme="green" onClick={handleSubmit}>
+                      Update
+                    </Button>
                   </ModalFooter>
                 </ModalContent>
               </Modal>
