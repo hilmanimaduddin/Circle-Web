@@ -3,7 +3,6 @@ import {
   Button,
   Grid,
   GridItem,
-  Image,
   Input,
   Modal,
   ModalBody,
@@ -23,9 +22,9 @@ import { SideBar } from "../features/thread/component/SideBar";
 import { UserBar } from "../features/thread/component/UserBar";
 import { API } from "../lib/api";
 import ThreadCardNew from "../pagesNew/Component/ThreadCardNew";
-import { RootState } from "../stores/types/rootState";
-import ProfileImage from "../pagesNew/uploadProfile/ProfileImage";
 import ProfileBackground from "../pagesNew/uploadProfile/ProfileBackground";
+import ProfileImage from "../pagesNew/uploadProfile/ProfileImage";
+import { RootState } from "../stores/types/rootState";
 
 interface ProfileProps {
   username: string;
