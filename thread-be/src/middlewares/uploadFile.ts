@@ -11,9 +11,9 @@ interface Params {
 
 export const upload = (image: string) => {
   cloudinary.config({
-    cloud_name: "dlcgwbdtv",
-    api_key: "361789865221418",
-    api_secret: "SSAfZgIMCIMpo1E6GX96tbgUn-g",
+    cloud_name: "dxui6zmzx",
+    api_key: "765868518452176",
+    api_secret: "mWrDFVi_GTT_opAD57Udb1qqfu4",
   });
 
   const storage = new CloudinaryStorage({
