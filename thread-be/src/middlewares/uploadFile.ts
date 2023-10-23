@@ -19,7 +19,7 @@ export const upload = (image: string) => {
   const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-      folder: "uploads", // Nama folder di Cloudinary
+      folder: "circle", // Nama folder di Cloudinary
       allowedFormats: ["jpg", "png"], // Format file yang diizinkan untuk diupload
       transformation: [{ width: 500, height: 500, crop: "limit" }], // Opsi transformasi gambar (opsional)
     } as Params,
