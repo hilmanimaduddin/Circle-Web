@@ -29,7 +29,6 @@ import { RootState } from "../stores/types/rootState";
 interface ProfileProps {
   username: string;
   full_name: string;
-  email: string;
   profile_description: string;
 }
 export function Profile() {
@@ -51,7 +50,6 @@ export function Profile() {
   const [form, setForm] = useState<ProfileProps>({
     username: user?.username as string,
     full_name: user?.full_name as string,
-    email: user?.email as string,
     profile_description: user?.profile_description as string,
   });
   console.log("form", form);
@@ -197,17 +195,6 @@ export function Profile() {
                           name="full_name"
                           placeholder="Full Name"
                           value={form.full_name}
-                          onChange={handleChange}
-                        />
-                      </label>
-                      <label htmlFor="email">
-                        Email
-                        <Input
-                          type="email"
-                          id="email"
-                          name="email"
-                          placeholder="Email"
-                          value={form.email}
                           onChange={handleChange}
                         />
                       </label>
