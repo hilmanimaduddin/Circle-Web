@@ -116,6 +116,7 @@ export function Profile() {
           <Box>
             <Box display={"flex"} justifyContent={"center"}>
               <Box
+                w={"100%"}
                 p={4}
                 border={"2px"}
                 borderRadius={9}

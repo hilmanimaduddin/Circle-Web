@@ -78,9 +78,10 @@ export function ProfileUserData() {
             </Link>
             <Text>Other Profile</Text>
           </Box>
-          <Box>
-            <Box display={"flex"} justifyContent={"center"}>
+          <Box w={"100%"}>
+            <Box w={"100%"} display={"flex"} justifyContent={"center"}>
               <Box
+                w={"100%"}
                 p={4}
                 border={"2px"}
                 borderRadius={9}
@@ -89,6 +90,8 @@ export function ProfileUserData() {
                 flexDirection={"column"}
               >
                 <Image
+                  objectFit={"cover"}
+                  h={"350px"}
                   src={
                     prop?.profile_background ??
                     "https://i.vimeocdn.com/video/1118803646-cf91319cca62e75b948f598e639f3a7e1e295d7bf007d09df37b778ed32683a4-d_640x360.jpg"

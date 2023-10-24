@@ -86,6 +86,8 @@ export default function ProfileBackground(props: any) {
     <>
       <Box>
         <Image
+          objectFit={"cover"}
+          h={"350px"}
           w={"100%"}
           src={props.image}
           alt="profil"
