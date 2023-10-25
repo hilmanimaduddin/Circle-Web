@@ -67,7 +67,7 @@ export function useThreadCard() {
     event.preventDefault();
     postData();
   }
-  const [coba, setCoba] = useState("");
+  const [time, setTime] = useState("");
 
   async function postData() {
     try {
@@ -81,7 +81,7 @@ export function useThreadCard() {
         },
       });
       dispatch(THREAD_GET(fetch.data));
-      setCoba("coba");
+      setTime("now");
       console.log(res.config.data);
       console.log("data", formData);
       setForm(res.data);
@@ -91,7 +91,7 @@ export function useThreadCard() {
   }
 
   return {
-    coba,
+    time,
     handlePostLike,
     handleButtonClick,
     handleSubmit,
