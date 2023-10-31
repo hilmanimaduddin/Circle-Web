@@ -18,13 +18,14 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { VscArrowLeft } from "react-icons/vsc";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { SideBar } from "../features/thread/component/SideBar";
-import { UserBar } from "../features/thread/component/UserBar";
+import { SideBar } from "../features/global/SideBar";
+import { UserBar } from "../features/global/UserBar";
 import { API } from "../lib/api";
-import ThreadCardNew from "../pagesNew/Component/ThreadCardNew";
-import ProfileBackground from "../pagesNew/uploadProfile/ProfileBackground";
-import ProfileImage from "../pagesNew/uploadProfile/ProfileImage";
+import ThreadCardNew from "../features/thread/component/ThreadCardNew";
+import ProfileBackground from "../features/profile/component/ProfileBackground";
+import ProfileImage from "../features/profile/component/ProfileImage";
 import { RootState } from "../stores/types/rootState";
+import SimpleSidebar from "../features/global/sidebar/NewSideBar";
 
 interface ProfileProps {
   username: string;
@@ -88,8 +89,15 @@ export function Profile() {
 
   return (
     <>
-      <Grid h="fit-content" templateColumns="repeat(10, 1fr)" gap={4}>
-        <GridItem colSpan={2}>
+      <Box display={{ base: "block", sm: "block", md: "none" }}>
+        <SimpleSidebar />
+      </Box>
+      <Box display={"flex"} h="fit-content" gap={4}>
+        <GridItem
+          colSpan={2}
+          display={{ base: "none", sm: "none", md: "block" }}
+          minW={"200px"}
+        >
           <SideBar />
         </GridItem>
         <GridItem
@@ -243,12 +251,16 @@ export function Profile() {
             );
           })}
         </GridItem>
-        <GridItem colSpan={3}>
+        <GridItem
+          colSpan={3}
+          display={["none", "none", "none", "block", "block"]}
+          minW={"400px"}
+        >
           {/* <RightBar /> */}
 
           <UserBar />
         </GridItem>
-      </Grid>
+      </Box>
     </>
   );
 }

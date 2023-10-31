@@ -12,7 +12,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { ChangeEvent, useState } from "react";
-import { API } from "../../lib/api";
+import { API } from "../../../lib/api";
 
 interface ImageState {
   image: string | Blob | MediaSource | null;

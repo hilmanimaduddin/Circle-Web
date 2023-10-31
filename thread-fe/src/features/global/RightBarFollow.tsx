@@ -1,7 +1,7 @@
 import { Box, Image, Text } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { RootState } from "../../../stores/types/rootState";
+import { RootState } from "../../stores/types/rootState";
 
 export function RightBarFollow() {
   const user = useSelector((state: RootState) => state.user);

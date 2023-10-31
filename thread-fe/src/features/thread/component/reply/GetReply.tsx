@@ -1,7 +1,7 @@
 import { Box, Image, Text } from "@chakra-ui/react";
 import moment from "moment";
 import { VscHeartFilled } from "react-icons/vsc";
-import { IReply } from "../../../types/interface/IReply";
+import { IReply } from "../../../../types/interface/IReply";
 
 const GetReply = (item: IReply) => {
   return (

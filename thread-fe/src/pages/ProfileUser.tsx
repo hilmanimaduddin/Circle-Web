@@ -3,14 +3,15 @@ import { useEffect, useState } from "react";
 import { VscArrowLeft } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { RightBarFollow } from "../features/thread/component/RightBarFollow";
-import { SideBar } from "../features/thread/component/SideBar";
-import { UserBar } from "../features/thread/component/UserBar";
+import { RightBarFollow } from "../features/global/RightBarFollow";
+import { SideBar } from "../features/global/SideBar";
+import { UserBar } from "../features/global/UserBar";
 import { API } from "../lib/api";
-import ThreadCardNew from "../pagesNew/Component/ThreadCardNew";
+import ThreadCardNew from "../features/thread/component/ThreadCardNew";
 import { THREAD_GET } from "../stores/rootReducer";
 import { RootState } from "../stores/types/rootState";
 import { UserType } from "../types/interface/IType";
+import SimpleSidebar from "../features/global/sidebar/NewSideBar";
 
 export function ProfileUserData() {
   const [user, setUser] = useState<UserType[]>([]);
@@ -55,8 +56,15 @@ export function ProfileUserData() {
 
   return (
     <>
-      <Grid h="fit-content" templateColumns="repeat(10, 1fr)" gap={4}>
-        <GridItem colSpan={2}>
+      <Box display={{ base: "block", sm: "block", md: "none" }}>
+        <SimpleSidebar />
+      </Box>
+      <Box display={"flex"} h="fit-content" gap={4}>
+        <GridItem
+          colSpan={2}
+          display={{ base: "none", sm: "none", md: "block" }}
+          minW={"200px"}
+        >
           <SideBar />
         </GridItem>
         <GridItem
@@ -138,12 +146,16 @@ export function ProfileUserData() {
             );
           })}
         </GridItem>
-        <GridItem colSpan={3}>
+        <GridItem
+          colSpan={3}
+          display={["none", "none", "none", "block", "block"]}
+          minW={"400px"}
+        >
           <RightBarFollow />
 
           <UserBar />
         </GridItem>
-      </Grid>
+      </Box>
     </>
   );
 }

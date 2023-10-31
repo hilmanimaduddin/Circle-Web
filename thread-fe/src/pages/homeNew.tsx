@@ -11,13 +11,14 @@ import {
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { VscFileMedia } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
-import { RightBar } from "../features/thread/component/RightBar";
-import { SideBar } from "../features/thread/component/SideBar";
+import { RightBar } from "../features/global/RightBar";
+import { SideBar } from "../features/global/SideBar";
 import { API } from "../lib/api";
 import { THREAD_GET } from "../stores/rootReducer";
 import { RootState } from "../stores/types/rootState";
 import { IGetThreads } from "../types/interface/IType";
-import ThreadCardNew from "./Component/ThreadCardNew";
+import ThreadCardNew from "../features/thread/component/ThreadCardNew";
+import SimpleSidebar from "../features/global/sidebar/NewSideBar";
 
 export function HomeNew() {
   const dispatch = useDispatch();
@@ -96,8 +97,15 @@ export function HomeNew() {
 
   return (
     <>
-      <Grid h="fit-content" templateColumns="repeat(10, 1fr)" gap={4}>
-        <GridItem colSpan={2}>
+      <Box display={{ base: "block", sm: "block", md: "none" }}>
+        <SimpleSidebar />
+      </Box>
+      <Box display={"flex"} h="fit-content" gap={4}>
+        <GridItem
+          colSpan={2}
+          display={{ base: "none", sm: "none", md: "block" }}
+          minW={"200px"}
+        >
           <SideBar />
         </GridItem>
         <GridItem
@@ -106,6 +114,8 @@ export function HomeNew() {
           borderLeft="2px"
           borderColor="#2f2f2f"
           p={5}
+          // display={["none", "none", "none", "none", "block"]}
+          w={["100%", "100%", "100%", "100%", "100%"]}
         >
           <Box>
             <Stack spacing={3} mb={4}>
@@ -189,10 +199,14 @@ export function HomeNew() {
             );
           })}
         </GridItem>
-        <GridItem colSpan={3}>
+        <GridItem
+          colSpan={3}
+          display={["none", "none", "none", "block", "block"]}
+          minW={"400px"}
+        >
           <RightBar />
         </GridItem>
-      </Grid>
+      </Box>
     </>
   );
 }

@@ -8,10 +8,10 @@ import { Followers } from "./entities/Follows";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
-  host: "containers-us-west-79.railway.app",
-  port: 6099,
+  host: "monorail.proxy.rlwy.net",
+  port: 48128,
   username: "postgres",
-  password: "1fQy5XtByhkIjxRe38TV",
+  password: "EfBcgbg2G*CbF6fACDCe5d61e33G2EA*",
   database: "railway",
   synchronize: true,
   logging: false,

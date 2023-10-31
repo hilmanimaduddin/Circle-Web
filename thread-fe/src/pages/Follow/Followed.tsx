@@ -1,9 +1,10 @@
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Box, Grid, GridItem } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import FollowPage from "../../features/Follow/FollowPage";
-import { RightBarFollow } from "../../features/thread/component/RightBarFollow";
-import { SideBar } from "../../features/thread/component/SideBar";
+import { RightBarFollow } from "../../features/global/RightBarFollow";
+import { SideBar } from "../../features/global/SideBar";
 import { API } from "../../lib/api";
+import SimpleSidebar from "../../features/global/sidebar/NewSideBar";
 
 export function Followed() {
   interface IFollowerUser {
@@ -44,8 +45,15 @@ export function Followed() {
 
   return (
     <>
-      <Grid h="fit-content" templateColumns="repeat(10, 1fr)" gap={4}>
-        <GridItem colSpan={2}>
+      <Box display={{ base: "block", sm: "block", md: "none" }}>
+        <SimpleSidebar />
+      </Box>
+      <Box display={"flex"} h="fit-content" gap={4}>
+        <GridItem
+          colSpan={2}
+          display={{ base: "none", sm: "none", md: "block" }}
+          minW={"200px"}
+        >
           <SideBar />
         </GridItem>
         <GridItem
@@ -55,13 +63,19 @@ export function Followed() {
           borderLeft="2px"
           borderColor="#2f2f2f"
           p={5}
+          // display={["none", "none", "none", "none", "block"]}
+          w={["100%", "100%", "100%", "100%", "100%"]}
         >
           <FollowPage data={data} />
         </GridItem>
-        <GridItem colSpan={3}>
+        <GridItem
+          colSpan={3}
+          display={["none", "none", "none", "block", "block"]}
+          minW={"400px"}
+        >
           <RightBarFollow />
         </GridItem>
-      </Grid>
+      </Box>
     </>
   );
 }

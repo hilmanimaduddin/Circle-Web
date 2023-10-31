@@ -2,7 +2,7 @@ import { Box, Button, Text } from "@chakra-ui/react";
 import { FaHeart, FaHome, FaSearch, FaUser } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { AUTH_LOGOUT } from "../../../stores/rootReducer";
+import { AUTH_LOGOUT } from "../../stores/rootReducer";
 
 export function SideBar() {
   const navigate = useNavigate();

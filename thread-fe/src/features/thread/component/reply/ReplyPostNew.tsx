@@ -3,9 +3,9 @@ import moment from "moment";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { API } from "../../lib/api";
-import { RootState } from "../../stores/types/rootState";
-import { IReply } from "../../types/interface/IReply";
+import { API } from "../../../../lib/api";
+import { RootState } from "../../../../stores/types/rootState";
+import { IReply } from "../../../../types/interface/IReply";
 
 export function ReplyNew() {
   const { id } = useParams();

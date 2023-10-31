@@ -1,7 +1,7 @@
 import { Box, Button, Image, Input, Stack } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../stores/types/rootState";
-import { useReply } from "../hooks/useReply";
+import { RootState } from "../../../../stores/types/rootState";
+import { useReply } from "../../hooks/useReply";
 
 export function AddReply() {
   const user = useSelector((state: RootState) => state.user);

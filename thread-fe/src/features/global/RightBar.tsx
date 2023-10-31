@@ -1,29 +1,71 @@
 import { Box, Button, Image, Text } from "@chakra-ui/react";
-import { API } from "../../../lib/api";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { RootState } from "../../../stores/types/rootState";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { API } from "../../lib/api";
+import { RootState } from "../../stores/types/rootState";
+import { UserType } from "../../types/interface/IType";
 
-export function UserBar() {
-  const [data, setData] = useState<any[]>([]);
+export function RightBar() {
   const user = useSelector((state: RootState) => state.user);
-  async function FetchUser() {
+
+  const [data, setData] = useState<UserType[]>([]);
+
+  const dataFilter = data.filter((props) => props.id !== user.id);
+
+  async function fetchData() {
     try {
-      const data = await API.get(`/auth`);
-      setData(data.data);
+      const res = await API.get("/auth");
+      setData(res.data);
     } catch (err) {
       console.log("error", err);
     }
   }
-
-  const dataFilter = data.filter((prop) => prop.id !== user.id);
-
   useEffect(() => {
-    FetchUser();
+    fetchData();
   }, []);
+
   return (
-    <>
+    <Box>
+      <Box
+        border="2px"
+        borderColor="#2f2f2f"
+        borderRadius="15px"
+        margin={2}
+        p={3}
+      >
+        <Text fontSize={"2xl"} fontWeight={"bold"} mb={2}>
+          My Profile
+        </Text>
+        <Image
+          borderRadius={5}
+          height={"200px"}
+          width={"100%"}
+          objectFit={"cover"}
+          src={
+            user.profile_background ??
+            "https://i2.wp.com/blog.tripcetera.com/id/wp-content/uploads/2020/10/pulau-padar.jpg"
+          }
+          alt=""
+        />
+        <Image
+          borderRadius="full"
+          boxSize="100px"
+          mt={"-14"}
+          ml={4}
+          objectFit={"cover"}
+          src={
+            user?.profile_picture ??
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/694px-Unknown_person.jpg"
+          }
+          alt="profil"
+        />
+        <Link to={`/profil`}>
+          <Text>{user.full_name}</Text>
+          <Text>@{user.username}</Text>
+          <Text>{user.profile_description}</Text>
+        </Link>
+      </Box>
       <Box
         border="2px"
         borderColor="#2f2f2f"
@@ -35,12 +77,12 @@ export function UserBar() {
           Suggested for You
         </Text>
         <Box>
-          {dataFilter.map((prop, index) => (
-            <UserProfile prop={prop} key={index} />
+          {dataFilter.map((props, i) => (
+            <UserProfile prop={props} key={i} />
           ))}
         </Box>
       </Box>
-    </>
+    </Box>
   );
 }
 

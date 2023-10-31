@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import { VscArrowLeft, VscHeart, VscHeartFilled } from "react-icons/vsc";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { RightBar } from "../features/thread/component/RightBar";
-import { SideBar } from "../features/thread/component/SideBar";
+import { RightBar } from "../features/global/RightBar";
+import { SideBar } from "../features/global/SideBar";
 import { API } from "../lib/api";
 import { RootState } from "../stores/types/rootState";
 import { ThreadCardType } from "../types/interface/IType";
-import { ReplyNew } from "./Component/ReplyPostNew";
+import { ReplyNew } from "../features/thread/component/reply/ReplyPostNew";
+import SimpleSidebar from "../features/global/sidebar/NewSideBar";
 
 export function DetailBlog() {
   const { id } = useParams();
@@ -94,8 +95,15 @@ export function DetailBlog() {
 
   return (
     <>
-      <Grid h="fit-content" templateColumns="repeat(10, 1fr)" gap={4}>
-        <GridItem colSpan={2}>
+      <Box display={{ base: "block", sm: "block", md: "none" }}>
+        <SimpleSidebar />
+      </Box>
+      <Box display={"flex"} h="fit-content" gap={4}>
+        <GridItem
+          colSpan={2}
+          display={{ base: "none", sm: "none", md: "block" }}
+          minW={"200px"}
+        >
           <SideBar />
         </GridItem>
         <GridItem
@@ -104,6 +112,8 @@ export function DetailBlog() {
           borderLeft="2px"
           borderColor="#2f2f2f"
           p={5}
+          // display={["none", "none", "none", "none", "block"]}
+          w={["100%", "100%", "100%", "100%", "100%"]}
         >
           <Box
             fontSize="40px"
@@ -163,10 +173,14 @@ export function DetailBlog() {
             <ReplyNew />
           </Box>
         </GridItem>
-        <GridItem colSpan={3}>
+        <GridItem
+          colSpan={3}
+          display={["none", "none", "none", "block", "block"]}
+          minW={"400px"}
+        >
           <RightBar />
         </GridItem>
-      </Grid>
+      </Box>
     </>
   );
 }

@@ -5,12 +5,12 @@ import { API, setAuthToken } from "./lib/api";
 import { FollowSuggest } from "./pages/Follow/FollowSuggest";
 import { Followed } from "./pages/Follow/Followed";
 import { Follower } from "./pages/Follow/Follower";
-import Login from "./pagesNew/Login";
+import Login from "./pages/Login";
 import { Profile } from "./pages/Profile";
 import { ProfileUserData } from "./pages/ProfileUser";
-import Register from "./pagesNew/Register";
-import { DetailBlog } from "./pagesNew/DetailBlogNew";
-import { HomeNew } from "./pagesNew/homeNew";
+import Register from "./pages/Register";
+import { DetailBlog } from "./pages/DetailBlogNew";
+import { HomeNew } from "./pages/homeNew";
 import { AUTH_CHECK, AUTH_ERROR } from "./stores/rootReducer";
 // import { RootState } from "./stores/types/rootState";
 
