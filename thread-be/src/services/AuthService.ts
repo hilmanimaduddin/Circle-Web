@@ -1,6 +1,6 @@
 import bcrypt = require("bcrypt");
 import { Request, Response } from "express";
-import { Repository, ILike } from "typeorm";
+import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { User } from "../entities/Users";
 import { userScema } from "../utils/validation";
@@ -169,8 +169,8 @@ class AuthServices {
 
       const checkEmail = await this.authRepository.findOne({
         where: {
-          username: ILike(data.username),
-          email: ILike(data.email),
+          username: data.username,
+          email: data.email,
         },
         select: [
           "id",
