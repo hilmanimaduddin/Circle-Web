@@ -1,4 +1,4 @@
-import { Box, Button, Grid, GridItem, Image, Text } from "@chakra-ui/react";
+import { Box, Button, GridItem, Image, Text } from "@chakra-ui/react";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { VscArrowLeft, VscHeart, VscHeartFilled } from "react-icons/vsc";
@@ -6,11 +6,11 @@ import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { RightBar } from "../features/global/RightBar";
 import { SideBar } from "../features/global/SideBar";
+import SimpleSidebar from "../features/global/sidebar/NewSideBar";
+import { ReplyNew } from "../features/thread/component/reply/ReplyPostNew";
 import { API } from "../lib/api";
 import { RootState } from "../stores/types/rootState";
 import { ThreadCardType } from "../types/interface/IType";
-import { ReplyNew } from "../features/thread/component/reply/ReplyPostNew";
-import SimpleSidebar from "../features/global/sidebar/NewSideBar";
 
 export function DetailBlog() {
   const { id } = useParams();

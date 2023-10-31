@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Grid,
   GridItem,
   Image,
   Input,
@@ -13,12 +12,12 @@ import { VscFileMedia } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
 import { RightBar } from "../features/global/RightBar";
 import { SideBar } from "../features/global/SideBar";
+import SimpleSidebar from "../features/global/sidebar/NewSideBar";
+import ThreadCardNew from "../features/thread/component/ThreadCardNew";
 import { API } from "../lib/api";
 import { THREAD_GET } from "../stores/rootReducer";
 import { RootState } from "../stores/types/rootState";
 import { IGetThreads } from "../types/interface/IType";
-import ThreadCardNew from "../features/thread/component/ThreadCardNew";
-import SimpleSidebar from "../features/global/sidebar/NewSideBar";
 
 export function HomeNew() {
   const dispatch = useDispatch();

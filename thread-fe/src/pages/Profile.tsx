@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Grid,
   GridItem,
   Input,
   Modal,
@@ -20,12 +19,12 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { SideBar } from "../features/global/SideBar";
 import { UserBar } from "../features/global/UserBar";
-import { API } from "../lib/api";
-import ThreadCardNew from "../features/thread/component/ThreadCardNew";
+import SimpleSidebar from "../features/global/sidebar/NewSideBar";
 import ProfileBackground from "../features/profile/component/ProfileBackground";
 import ProfileImage from "../features/profile/component/ProfileImage";
+import ThreadCardNew from "../features/thread/component/ThreadCardNew";
+import { API } from "../lib/api";
 import { RootState } from "../stores/types/rootState";
-import SimpleSidebar from "../features/global/sidebar/NewSideBar";
 
 interface ProfileProps {
   username: string;

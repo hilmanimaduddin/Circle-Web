@@ -1,10 +1,10 @@
-import { Box, Grid, GridItem } from "@chakra-ui/react";
+import { Box, GridItem } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import FollowPage from "../../features/Follow/FollowPage";
 import { RightBarFollow } from "../../features/global/RightBarFollow";
 import { SideBar } from "../../features/global/SideBar";
-import { API } from "../../lib/api";
 import SimpleSidebar from "../../features/global/sidebar/NewSideBar";
+import { API } from "../../lib/api";
 
 export function Followed() {
   interface IFollowerUser {

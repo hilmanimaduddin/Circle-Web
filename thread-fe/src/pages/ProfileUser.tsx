@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem, Image, Text } from "@chakra-ui/react";
+import { Box, GridItem, Image, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { VscArrowLeft } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,12 +6,12 @@ import { Link, useParams } from "react-router-dom";
 import { RightBarFollow } from "../features/global/RightBarFollow";
 import { SideBar } from "../features/global/SideBar";
 import { UserBar } from "../features/global/UserBar";
-import { API } from "../lib/api";
+import SimpleSidebar from "../features/global/sidebar/NewSideBar";
 import ThreadCardNew from "../features/thread/component/ThreadCardNew";
+import { API } from "../lib/api";
 import { THREAD_GET } from "../stores/rootReducer";
 import { RootState } from "../stores/types/rootState";
 import { UserType } from "../types/interface/IType";
-import SimpleSidebar from "../features/global/sidebar/NewSideBar";
 
 export function ProfileUserData() {
   const [user, setUser] = useState<UserType[]>([]);
