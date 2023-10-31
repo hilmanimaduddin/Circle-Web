@@ -15,11 +15,11 @@ import {
 } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import { IconType } from "react-icons";
-import { FiCompass, FiHome, FiMenu, FiTrendingUp } from "react-icons/fi";
+import { FaHeart, FaHome, FaUser } from "react-icons/fa";
+import { FiMenu } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AUTH_LOGOUT } from "../../../stores/rootReducer";
-import { FaHeart, FaHome, FaUser } from "react-icons/fa";
 
 interface LinkItemProps {
   name: string;
